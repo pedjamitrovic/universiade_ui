@@ -1,0 +1,15 @@
+<mat-toolbar *ngIf="userService?.user" color="primary">
+    <button mat-button (click)="home()">Universiade 2020</button>
+    <button mat-button *ngIf="userService?.user?.type === 0" (click)="locations()">Locations</button>
+    <button mat-button *ngIf="userService?.user?.type === 0" (click)="matches()">Matches</button>
+    <button mat-button *ngIf="userService?.user?.type === 0" (click)="attractions()">Tourist attractions</button>
+
+    <span class="fill-remaining-space"></span>
+    <button mat-button (click)="profile()"><mat-icon>account_circle</mat-icon> Profile</button>
+    <button mat-button (click)="logout()">Logout</button>
+</mat-toolbar>
+<mat-sidenav-container [ngClass]="{'toolbarExists': userService?.user}">
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
