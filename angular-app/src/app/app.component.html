@@ -10,6 +10,8 @@
 </mat-toolbar>
 <mat-sidenav-container [ngClass]="{'toolbarExists': userService?.user}">
     <mat-sidenav-content>
-        <router-outlet></router-outlet>
+        <mat-card class="router-outlet">
+            <router-outlet></router-outlet>
+        </mat-card>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -9,6 +9,7 @@ import { LocationsComponent } from './components/locations/locations.component';
 import { LocationComponent } from './components/location/location.component';
 import { MatchesComponent } from './components/matches/matches.component';
 import { AttractionsComponent } from './components/attractions/attractions.component';
+import { AttractionComponent } from './components/attraction/attraction.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: 'attractions',
     component: AttractionsComponent,
+    canActivate: [UserService]
+  },
+  {
+    path: 'attraction/:id',
+    component: AttractionComponent,
     canActivate: [UserService]
   },
   {

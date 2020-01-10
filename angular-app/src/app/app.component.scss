@@ -16,3 +16,7 @@ mat-sidenav-container {
 mat-sidenav-container.toolbarExists {
     min-height: calc(100% - 64px);
 }
+
+.router-outlet {
+    padding: 30px;
+}

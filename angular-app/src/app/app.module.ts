@@ -18,6 +18,12 @@ import { MatchesComponent } from './components/matches/matches.component';
 import { AttractionsComponent } from './components/attractions/attractions.component';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AttractionComponent } from './components/attraction/attraction.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -30,6 +36,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     LocationComponent,
     MatchesComponent,
     AttractionsComponent,
+    AttractionComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,14 +47,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
