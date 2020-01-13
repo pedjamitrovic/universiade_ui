@@ -1,19 +1,31 @@
-<div fxLayout="row" fxLayoutAlign="space-evenly stretch">
-    <button mat-raised-button color="primary" [disabled]="!previousExists() ? true : null" (click)="previousPage()"><mat-icon>arrow_back_ios</mat-icon></button>
-    <mat-card *ngFor="let a of pagedAttractions; index as i" class="attraction-card">
-        <mat-card-header fxLayout="row" fxLayoutAlign="center">
-            <mat-card-title style="text-align: center;">Shiba Inu {{a}}</mat-card-title>
-            <mat-card-subtitle style="text-align: center;">Dog Breed {{a}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-            <p>
-                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting...
-            </p>
-        </mat-card-content>
-        <mat-card-actions [align]="'end'">
-            <button mat-button (click)="attraction(a)">DETAILS</button>
-        </mat-card-actions>
-    </mat-card>
-    <button mat-raised-button color="primary" [disabled]="!nextExists() ? true : null" (click)="nextPage()"><mat-icon>arrow_forward_ios</mat-icon></button>
-</div>
+<mat-card class="mat-elevation-z3">
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+        <button class="mat-elevation-z3" mat-raised-button color="primary" [disabled]="!previousExists() ? true : null"
+            (click)="previousPage()">
+            <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+        <mat-card *ngFor="let a of pagedAttractions; index as i" class="attraction-card mat-elevation-z3">
+            <mat-card-header fxLayout="row" fxLayoutAlign="center">
+                <mat-card-title style="text-align: center;">Shiba Inu {{a}}</mat-card-title>
+                <mat-card-subtitle style="text-align: center;">Dog Breed {{a}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                alt="Photo of a Shiba Inu">
+            <mat-card-content>
+                <p>
+                    The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A
+                    small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred
+                    for hunting...
+                </p>
+            </mat-card-content>
+            <mat-card-actions [align]="'end'">
+                <button class="mat-elevation-z3" mat-raised-button color="primary"
+                    (click)="attraction(a)">DETAILS</button>
+            </mat-card-actions>
+        </mat-card>
+        <button class="mat-elevation-z3" mat-raised-button color="primary" [disabled]="!nextExists() ? true : null"
+            (click)="nextPage()">
+            <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+    </div>
+</mat-card>

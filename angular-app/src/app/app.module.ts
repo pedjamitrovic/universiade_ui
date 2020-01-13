@@ -24,6 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { GalleryDialogComponent } from './components/attraction/gallery-dialog/gallery-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatchesComponent,
     AttractionsComponent,
     AttractionComponent,
+    GalleryDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,11 +56,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSortModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   exports: [
   ],
   providers: [],
+  entryComponents: [GalleryDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

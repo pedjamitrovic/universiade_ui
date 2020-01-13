@@ -8,10 +8,10 @@
     <button mat-button (click)="profile()"><mat-icon>account_circle</mat-icon> Profile</button>
     <button mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
-<mat-sidenav-container [ngClass]="{'toolbarExists': userService?.user}">
-    <mat-sidenav-content>
-        <mat-card class="router-outlet">
+<mat-sidenav-container [ngClass]="{'toolbarExists': userService?.user}" fxLayout="row" fxLayoutAlign="center center">
+    <mat-sidenav-content fxFlex>
+        <div class="router-outlet">
             <router-outlet></router-outlet>
-        </mat-card>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

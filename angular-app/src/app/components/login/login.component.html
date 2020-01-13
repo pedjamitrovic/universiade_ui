@@ -1,1 +1,26 @@
-<div><button mat-raised-button color="accent" (click)="login()">Login</button></div>
+<mat-card class="mat-elevation-z3 login-card">
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <div fxFlex="40" fxFlexOffset="10">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <img id="login-logo" src="assets/pictures/login/logo.png">
+            </div>
+        </div>
+        <div fxFlex="40">
+            <form [formGroup]="loginForm" autocomplete="off" fxLayout="column" fxLayoutAlign="center center">
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput [formControl]="loginForm.controls['username']" (focus)="onFieldFocus()">
+                    <mat-error *ngIf="loginForm.controls['username'].invalid">Username is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput [formControl]="loginForm.controls['password']" (focus)="onFieldFocus()">
+                    <mat-error *ngIf="loginForm.controls['password'].invalid">Password is required</mat-error>
+                </mat-form-field>
+                <mat-error class="login-error">{{errorMessage}}</mat-error>
+                <button class="mat-elevation-z3" mat-raised-button color="primary"
+                    (click)="login()">LOGIN</button>
+            </form>
+        </div>
+    </div>
+</mat-card>
