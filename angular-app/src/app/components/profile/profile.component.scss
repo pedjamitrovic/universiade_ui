@@ -1,0 +1,23 @@
+.profile-card {
+    min-width: 300px;
+    form {
+        padding: 10px;
+        width: 66%;
+        height: 100%;
+        button, mat-form-field {
+            width: 100%;
+        }
+        button {
+            margin-top: 20px;
+        }
+    }
+    .profile-error{
+        margin: 10px;
+    }
+    #profile {
+        max-width: 70%;
+        max-height: 70%;
+        margin-bottom: 20px;
+        border-radius: 50%;
+    }
+}

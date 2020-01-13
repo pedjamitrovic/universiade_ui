@@ -5,7 +5,7 @@
     <button mat-button *ngIf="userService?.user?.type === 0" (click)="attractions()">Tourist attractions</button>
 
     <span class="fill-remaining-space"></span>
-    <button mat-button (click)="profile()"><mat-icon>account_circle</mat-icon> Profile</button>
+    <button mat-button (click)="profile()"><img class="mat-elevation-z3" id="profile-image-circle" src="assets/pictures/users/1/profile.jpg">{{userService.user.firstName}} {{userService.user.lastName}}</button>
     <button mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 <mat-sidenav-container [ngClass]="{'toolbarExists': userService?.user}" fxLayout="row" fxLayoutAlign="center center">
