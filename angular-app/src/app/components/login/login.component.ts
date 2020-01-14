@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.login('vlada_student', 'sifra123');
+    this.userService.login('pedja_admin', 'sifra123');
     if (!this.userService.user) {
       alert('No user');
     }

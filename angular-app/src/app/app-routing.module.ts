@@ -10,6 +10,11 @@ import { LocationComponent } from './components/location/location.component';
 import { MatchesComponent } from './components/matches/matches.component';
 import { AttractionsComponent } from './components/attractions/attractions.component';
 import { AttractionComponent } from './components/attraction/attraction.component';
+import { ChangeRequestsComponent } from './components/change-requests/change-requests.component';
+import { MatchesWithoutVenueComponent } from './components/matches-without-venue/matches-without-venue.component';
+import { ReserveVenueComponent } from './components/reserve-venue/reserve-venue.component';
+import { UserGuard } from './services/user-guard.service';
+import { UserType } from './model/user';
 
 
 const routes: Routes = [
@@ -21,42 +26,92 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [UserService]
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Student, UserType.Admin]
+    }
   },
   {
     path: 'locations',
     component: LocationsComponent,
-    canActivate: [UserService]
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Student]
+    }
   },
   {
     path: 'matches',
     component: MatchesComponent,
-    canActivate: [UserService]
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Student]
+    }
   },
   {
     path: 'attractions',
     component: AttractionsComponent,
-    canActivate: [UserService]
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Student]
+    }
   },
   {
     path: 'attraction/:id',
     component: AttractionComponent,
-    canActivate: [UserService]
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Student]
+    }
   },
   {
     path: 'location/:id',
     component: LocationComponent,
-    canActivate: [UserService]
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Student]
+    }
+  },
+  {
+    path: 'change-requests',
+    component: ChangeRequestsComponent,
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Admin]
+    }
+  },
+  {
+    path: 'matches-without-venue',
+    component: MatchesWithoutVenueComponent,
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Admin]
+    }
+  },
+  {
+    path: 'reserve-venue',
+    component: ReserveVenueComponent,
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Admin]
+    }
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [UserService]
+    canActivate: [UserGuard],
+    data: {
+      expectedRoles: [UserType.Student, UserType.Admin]
+    }
   },
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
+    canActivate: []
+  },
+  {
+    path: 'error-404',
+    component: PageNotFoundComponent,
     canActivate: []
   },
   {

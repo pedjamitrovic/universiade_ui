@@ -27,6 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GalleryDialogComponent } from './components/attraction/gallery-dialog/gallery-dialog.component';
 import { RatingModule } from 'ng-starrating';
+import { ChangeRequestsComponent } from './components/change-requests/change-requests.component';
+import { MatchesWithoutVenueComponent } from './components/matches-without-venue/matches-without-venue.component';
+import { ReserveVenueComponent } from './components/reserve-venue/reserve-venue.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { RatingModule } from 'ng-starrating';
     AttractionsComponent,
     AttractionComponent,
     GalleryDialogComponent,
+    ChangeRequestsComponent,
+    MatchesWithoutVenueComponent,
+    ReserveVenueComponent,
   ],
   imports: [
     BrowserModule,

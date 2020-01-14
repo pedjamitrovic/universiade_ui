@@ -1,21 +1,13 @@
-import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements CanActivate {
+export class UserService {
   constructor(private router: Router, private route: ActivatedRoute) {
     User.InitDb();
-  }
-
-  canActivate(): boolean {
-    if (!this.user) {
-      this.router.navigate(['login']);
-      return false;
-    }
-    return true;
   }
 
   login(username: string, password: string) {

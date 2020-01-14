@@ -1,4 +1,4 @@
-enum UserType { Student = 0, Admin = 1 }
+export enum UserType { Student = 0, Admin = 1 }
 
 const users: User[] = [
     {

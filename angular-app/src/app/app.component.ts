@@ -14,10 +14,6 @@ export class AppComponent {
 
   }
 
-  home() {
-    this.router.navigate(['home']);
-  }
-
   locations() {
     this.router.navigate(['locations']);
   }
@@ -28,6 +24,18 @@ export class AppComponent {
 
   attractions() {
     this.router.navigate(['attractions']);
+  }
+
+  changeRequests() {
+    this.router.navigate(['change-requests']);
+  }
+
+  matchesWithoutVenue() {
+    this.router.navigate(['matches-without-venue']);
+  }
+
+  reserveVenue() {
+    this.router.navigate(['reserve-venue']);
   }
 
   profile() {
