@@ -26,6 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GalleryDialogComponent } from './components/attraction/gallery-dialog/gallery-dialog.component';
+import { RatingModule } from 'ng-starrating';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { GalleryDialogComponent } from './components/attraction/gallery-dialog/g
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    RatingModule
   ],
   exports: [
   ],

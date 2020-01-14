@@ -7,12 +7,12 @@
         </div>
         <div fxFlex="40">
             <form [formGroup]="loginForm" autocomplete="off" fxLayout="column" fxLayoutAlign="center center">
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" color="accent">
                     <mat-label>Username</mat-label>
                     <input matInput [formControl]="loginForm.controls['username']" (focus)="onFieldFocus()">
                     <mat-error *ngIf="loginForm.controls['username'].invalid">Username is required</mat-error>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" color="accent">
                     <mat-label>Password</mat-label>
                     <input matInput [formControl]="loginForm.controls['password']" (focus)="onFieldFocus()">
                     <mat-error *ngIf="loginForm.controls['password'].invalid">Password is required</mat-error>

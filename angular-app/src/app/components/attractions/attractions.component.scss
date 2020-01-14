@@ -1,3 +1,11 @@
-.attraction-card {
-    max-width: 300px;
+.attractions-card{
+    .attraction-card {
+        margin: 10px;
+    }
+    mat-card-content {
+        margin: 0 16px;
+        .description {
+            margin-bottom: 30px;
+        }
+    }
 }

@@ -46,7 +46,8 @@ export class AttractionComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(GalleryDialogComponent, {
-      maxWidth: '80vw',
+      minWidth: 200,
+      minHeight: 40,
       maxHeight: '80vh',
       data: { pictures: this.pictures }
     });

@@ -1,3 +1,101 @@
-<mat-card class="mat-elevation-z3">
-    <p>location works!</p>
+<mat-card class="mat-elevation-z3 location-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>{{location.name}}</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+                <div *ngIf="averageRating" fxLayout="column" fxLayoutAlign="center start">
+                    <div class="rating-label" fxLayout="row" fxLayoutAlign="center center">
+                        <star-rating value="{{roundAverageRating}}" totalstars="5" checkedcolor="gold" uncheckedcolor="silver"
+                            size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
+                            <h3 style="margin: 0;">{{averageRating}}/5</h3>
+                    </div>
+                </div>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="description">{{location.description}}</p>
+        <div *ngIf="location?.reviews?.length" fxLayout="row" fxLayoutAlign="center stretch">
+            <button class="mat-elevation-z3" mat-raised-button color="primary"
+                [disabled]="!previousExists() ? true : null" (click)="previousPage()">
+                <mat-icon>arrow_back_ios</mat-icon>
+            </button>
+            <mat-card *ngFor="let r of pagedReviews; index as i" class="review-card mat-elevation-z3">
+                <mat-card-header fxLayout="row" fxLayoutAlign="center">
+                    <mat-card-title style="text-align: center;">{{r.username}}</mat-card-title>
+                    <mat-card-subtitle style="text-align: center;">
+                        <star-rating *ngIf="r.rating" value="{{r.rating}}" totalstars="5" checkedcolor="gold"
+                            uncheckedcolor="silver" size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
+                        <h3 *ngIf="!r.rating">No rating</h3>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p *ngIf="r.comment">
+                        {{r.comment}}
+                    </p>
+                    <p *ngIf="!r.comment">
+                        No comment
+                    </p>
+                </mat-card-content>
+            </mat-card>
+            <button class="mat-elevation-z3" mat-raised-button color="primary" [disabled]="!nextExists() ? true : null"
+                (click)="nextPage()">
+                <mat-icon>arrow_forward_ios</mat-icon>
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="mat-elevation-z3 post-review-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h3>Leave your review</h3>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h4>Rate and comment as you wish</h4>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-card class="mat-elevation-z3">
+            <form class="post-review-form">
+                <div fxLayout="column" fxLayoutAlign="center start">
+                    <div class="rating-label" fxLayout="row" fxLayoutAlign="center center">
+                        <div>Your rating: </div>
+                        <star-rating value="0" totalstars="5" checkedcolor="gold" uncheckedcolor="silver" size="20px"
+                            readonly="false" (rate)="onRate($event)"></star-rating>
+                    </div>
+                    <mat-form-field class="full-width" color="accent">
+                        <textarea style="min-height: 50px;" matInput placeholder="Your comment"></textarea>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center end">
+                    <button class="mat-elevation-z3" mat-raised-button color="primary" (click)="postComment()">POST COMMENT</button>    
+                </div>
+            </form>
+        </mat-card>
+    </mat-card-content>
+</mat-card>
+<mat-card class="mat-elevation-z3 post-review-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h3>Change request</h3>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h4>Not satisfied with this location? Post a change request</h4>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-card class="mat-elevation-z3">
+            <form class="post-review-form">
+                <div fxLayout="column" fxLayoutAlign="center start">
+                    <mat-form-field class="full-width" color="accent">
+                        <textarea style="min-height: 50px;" matInput placeholder="What are your reasons for requesting a change?"></textarea>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center end">
+                    <button class="mat-elevation-z3" mat-raised-button color="primary" (click)="submitRequest()">SUBMIT REQUEST</button>    
+                </div>
+            </form>
+        </mat-card>
+    </mat-card-content>
 </mat-card>

@@ -85,7 +85,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
 
   location(label: any) {
     console.log(label);
-    this.router.navigate(['location']);
+    this.router.navigate(['location', 1]);
   }
 
 }

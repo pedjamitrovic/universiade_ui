@@ -44,7 +44,7 @@ const routes: Routes = [
     canActivate: [UserService]
   },
   {
-    path: 'location',
+    path: 'location/:id',
     component: LocationComponent,
     canActivate: [UserService]
   },

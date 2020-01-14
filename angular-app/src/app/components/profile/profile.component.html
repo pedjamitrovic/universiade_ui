@@ -1,53 +1,65 @@
 <mat-card class="mat-elevation-z3 profile-card">
-    <div fxLayout="row" fxLayoutAlign="space-evenly center">
-        <div fxFlex="40" fxFlexOffset="10">
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <img class="mat-elevation-z3" id="profile" src="assets/pictures/users/1/profile.jpg">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Profile</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h2>Your personal information</h2>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="description">
+        </p>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+            <div fxFlex="40" fxFlexOffset="10">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <img class="mat-elevation-z3" id="profile" src="assets/pictures/users/1/profile.jpg">
+                </div>
+                <section class="mat-typography">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <h1>{{userService.user.firstName}} {{userService.user.lastName}}</h1>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <h3>{{userService.user.username}}</h3>
+                    </div>
+                </section>
             </div>
-            <section class="mat-typography">
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <h1>{{userService.user.firstName}} {{userService.user.lastName}}</h1>
-                </div>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <h3>{{userService.user.username}}</h3>
-                </div>
-            </section>
+            <div fxFlex="40">
+                <form [formGroup]="profileForm" autocomplete="off" fxLayout="column" fxLayoutAlign="center center">
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>First name</mat-label>
+                        <input matInput [formControl]="profileForm.controls['firstName']" (focus)="onFieldFocus()">
+                        <mat-error *ngIf="profileForm.controls['firstName'].invalid">First name is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Last name</mat-label>
+                        <input matInput [formControl]="profileForm.controls['lastName']" (focus)="onFieldFocus()">
+                        <mat-error *ngIf="profileForm.controls['lastName'].invalid">Last name is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Phone number</mat-label>
+                        <input matInput [formControl]="profileForm.controls['phoneNumber']" (focus)="onFieldFocus()">
+                        <mat-error *ngIf="profileForm.controls['phoneNumber'].invalid">Phone number is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Home address</mat-label>
+                        <input matInput [formControl]="profileForm.controls['homeAddress']" (focus)="onFieldFocus()">
+                        <mat-error *ngIf="profileForm.controls['homeAddress'].invalid">Home address is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Username</mat-label>
+                        <input matInput [formControl]="profileForm.controls['username']" (focus)="onFieldFocus()">
+                        <mat-error *ngIf="profileForm.controls['username'].invalid">Username is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" [formControl]="profileForm.controls['password']" (focus)="onFieldFocus()">
+                        <mat-error *ngIf="profileForm.controls['password'].invalid">Password is required</mat-error>
+                    </mat-form-field>
+                    <mat-error class="profile-error">{{errorMessage}}</mat-error>
+                    <button class="mat-elevation-z3" mat-raised-button color="primary" (click)="saveChanges()">SAVE CHANGES</button>
+                </form>
+            </div>
         </div>
-        <div fxFlex="40">
-            <form [formGroup]="profileForm" autocomplete="off" fxLayout="column" fxLayoutAlign="center center">
-                <mat-form-field appearance="outline">
-                    <mat-label>First name</mat-label>
-                    <input matInput [formControl]="profileForm.controls['firstName']" (focus)="onFieldFocus()">
-                    <mat-error *ngIf="profileForm.controls['firstName'].invalid">First name is required</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Last name</mat-label>
-                    <input matInput [formControl]="profileForm.controls['lastName']" (focus)="onFieldFocus()">
-                    <mat-error *ngIf="profileForm.controls['lastName'].invalid">Last name is required</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Phone number</mat-label>
-                    <input matInput [formControl]="profileForm.controls['phoneNumber']" (focus)="onFieldFocus()">
-                    <mat-error *ngIf="profileForm.controls['phoneNumber'].invalid">Phone number is required</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Home address</mat-label>
-                    <input matInput [formControl]="profileForm.controls['homeAddress']" (focus)="onFieldFocus()">
-                    <mat-error *ngIf="profileForm.controls['homeAddress'].invalid">Home address is required</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Username</mat-label>
-                    <input matInput [formControl]="profileForm.controls['username']" (focus)="onFieldFocus()">
-                    <mat-error *ngIf="profileForm.controls['username'].invalid">Username is required</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput type="password" [formControl]="profileForm.controls['password']" (focus)="onFieldFocus()">
-                    <mat-error *ngIf="profileForm.controls['password'].invalid">Password is required</mat-error>
-                </mat-form-field>
-                <mat-error class="profile-error">{{errorMessage}}</mat-error>
-                <button class="mat-elevation-z3" mat-raised-button color="primary" (click)="saveChanges()">SAVE CHANGES</button>
-            </form>
-        </div>
-    </div>
+    </mat-card-content>
 </mat-card>

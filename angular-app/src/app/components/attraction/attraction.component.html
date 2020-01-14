@@ -1,4 +1,19 @@
-<mat-card class="mat-elevation-z3">
-    <p>attraction works! Id: {{id}}</p>
-    <button mat-raised-button color="primary" (click)="openDialog()">IMAGE GALLERY</button>
+<mat-card class="mat-elevation-z3 attr-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Attraction</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h3>123 people like this
+                <span class="material-icons">
+                    thumb_up
+                </span></h3>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="description">Description</p>
+        <div fxLayout="column" fxLayoutAlign="center end">
+            <button mat-raised-button color="primary" (click)="openDialog()">IMAGE GALLERY</button>   
+        </div>
+    </mat-card-content>
 </mat-card>
