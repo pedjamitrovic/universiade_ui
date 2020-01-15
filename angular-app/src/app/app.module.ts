@@ -30,6 +30,7 @@ import { RatingModule } from 'ng-starrating';
 import { ChangeRequestsComponent } from './components/change-requests/change-requests.component';
 import { MatchesWithoutVenueComponent } from './components/matches-without-venue/matches-without-venue.component';
 import { ReserveVenueComponent } from './components/reserve-venue/reserve-venue.component';
+import { MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,11 @@ import { ReserveVenueComponent } from './components/reserve-venue/reserve-venue.
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    RatingModule
+    RatingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatSnackBarModule
   ],
   exports: [
   ],

@@ -1,1 +1,66 @@
-<p>change-requests works!</p>
+<mat-card class="mat-elevation-z3 change-request-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Change requests</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h2>Review user requests and accept or decline them as you wish</h2>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div style="min-height: 300px;" fxLayout="column" fxLayoutAlign="center center">
+            <mat-card-title *ngIf="!changeRequests.length" style="text-align: center;">Sorry, there are no change
+                requests right now.</mat-card-title>
+            <div *ngIf="changeRequests.length" fxLayout="row" fxLayoutAlign="center stretch">
+                <button class="mat-elevation-z3" mat-raised-button color="primary"
+                    [disabled]="!previousExists() ? true : null" (click)="previousPage()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                </button>
+                <mat-card *ngFor="let r of pagedRequests; index as i" class="form-card mat-elevation-z3">
+                    <mat-card-header fxLayout="row" fxLayoutAlign="center">
+                        <mat-card-title style="text-align: center;">{{r.userId}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p class="description">{{r.description}}</p>
+                        <form [formGroup]="changeRequestForm" autocomplete="off" fxLayout="row"
+                            fxLayoutAlign="space-around center">
+                            <mat-form-field color="accent">
+                                <mat-label>Old location</mat-label>
+                                <mat-select placeholder="Old location"
+                                    [formControl]="changeRequestForm.controls['oldLocation']">
+                                    <mat-option *ngFor="let location of locations" [value]="location">
+                                        {{location}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="changeRequestForm.controls['oldLocation'].invalid">Old location is
+                                    required
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field color="accent">
+                                <mat-label>New location</mat-label>
+                                <mat-select placeholder="New location"
+                                    [formControl]="changeRequestForm.controls['newLocation']">
+                                    <mat-option *ngFor="let location of locations" [value]="location">
+                                        {{location}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="changeRequestForm.controls['newLocation'].invalid">New location is
+                                    required
+                                </mat-error>
+                            </mat-form-field>
+                        </form>
+                        <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="end end">
+                            <button mat-raised-button color="accent" (click)="like()">ACCEPT</button>
+                            <button style="margin-left: 10px;" mat-raised-button color="warn"
+                                (click)="like()">REJECT</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <button class="mat-elevation-z3" mat-raised-button color="primary"
+                    [disabled]="!nextExists() ? true : null" (click)="nextPage()">
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

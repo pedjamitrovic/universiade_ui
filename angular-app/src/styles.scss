@@ -11,3 +11,13 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.error-snackbar {
+    background-color: rgba(255,0,0,0.7);
+    color: white;
+}
+
+.success-snackbar {
+    background-color: rgba(0,255,0,0.7);
+    color: white;
+}

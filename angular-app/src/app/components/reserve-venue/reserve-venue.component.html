@@ -1,1 +1,31 @@
-<p>reserve-venue works!</p>
+<mat-card class="mat-elevation-z3 reserve-venue-card">
+    <mat-card-header>
+        <mat-card-title>
+            <h1>Reserve venue</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h2>Select needed time period for the new venue and available venue will be allocated automatically</h2>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div style="min-height: 200px;" fxLayout="column" fxLayoutAlign="center center">
+            <form style="width: 50%;" [formGroup]="reserveVenueForm" autocomplete="off" fxLayout="row" fxLayoutAlign="space-around center">
+                <mat-form-field color="accent">
+                    <input matInput [formControl]="reserveVenueForm.controls['startDate']" [matDatepicker]="startDate" placeholder="Start date">
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #startDate disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="reserveVenueForm.controls['startDate'].invalid">Start date is required</mat-error>
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <input matInput [formControl]="reserveVenueForm.controls['endDate']" [matDatepicker]="endDate" placeholder="End date">
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #endDate disabled="false"></mat-datepicker>
+                    <mat-error *ngIf="reserveVenueForm.controls['endDate'].invalid">End date is required</mat-error>
+                </mat-form-field>
+            </form>
+            <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="end end">
+                <button mat-raised-button color="primary" (click)="reserve()">RESERVE</button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
