@@ -26,7 +26,14 @@ const matches: Match[] = [
         visitor: 'France',
         date: new Date(2020, 6, 13, 21, 0),
         venue: 'Kombank Arena',
-    }
+    },
+    {
+        id: 5,
+        host: 'Test 1',
+        visitor: 'Test 2',
+        date: new Date(2021, 6, 13, 21, 0),
+        venue: null,
+    },
 ];
 
 export class Match {

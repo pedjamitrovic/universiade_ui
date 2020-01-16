@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { LocationService } from 'src/app/services/location.service';
+import { Location, ChangeRequest } from 'src/app/model/location';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-change-requests',
@@ -8,39 +11,32 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class ChangeRequestsComponent implements OnInit {
   changeRequestForm: FormGroup;
-  locations: any[] = ['1st location', '2nd location'];
+  locations: Location[];
+  filteredLocations: Location[];
+  changeRequests: ChangeRequest[];
+  pagedRequests: ChangeRequest[];
   paginator: { page: number, itemsPerPage: number } = { page: 0, itemsPerPage: 1 };
-  changeRequests: {userId: number, description: string, oldLocation: string}[] = [
-    {
-      userId: 1,
-      description: 'The restaurant is awful! I want to eat in a restaurant, not in a butcher shop.',
-      oldLocation: 'Mesara Momčilo'
-    },
-    {
-      userId: 2,
-      description: 'The restaurant is awful! Can I eat in a restaurant with Italian cuisine?',
-      oldLocation: 'Mesara Momčilo'
-    },
-    {
-      userId: 3,
-      description: 'The restaurant is awful! Can I eat in a restaurant with Spanish cuisine?',
-      oldLocation: 'Mesara Momčilo'
-    }
-  ];
-  pagedRequests: {userId: number, description: string, oldLocation: string}[];
 
-  constructor() { }
+  constructor(private locationService: LocationService, private userService: UserService) {
+    this.initForm();
+  }
 
   ngOnInit() {
-    this.initForm();
+    this.initData();
     this.paginate();
   }
 
   initForm() {
     this.changeRequestForm = new FormGroup({
-      oldLocation: new FormControl({value: '1st location', disabled: true}, [Validators.required]),
-      newLocation: new FormControl({value: ''}, [Validators.required]),
+      oldLocation: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      newLocation: new FormControl({ value: '' }, [Validators.required]),
     });
+  }
+
+  initData() {
+    this.locations = this.locationService.locations;
+    this.changeRequests = [];
+    this.locations.forEach((l) => this.changeRequests.push(...l.changeRequests));
   }
 
   nextPage() {
@@ -68,6 +64,27 @@ export class ChangeRequestsComponent implements OnInit {
       this.paginator.page * this.paginator.itemsPerPage,
       this.paginator.page * this.paginator.itemsPerPage + this.paginator.itemsPerPage
     );
+    this.filterLocations();
+  }
+
+  filterLocations() {
+    if (!this.locations.length || !this.pagedRequests.length) return;
+    this.filteredLocations = this.locations.filter((l) => l.name !== this.pagedRequests[0].oldLocation && l.type === this.pagedRequests[0].oldLocationType);
+    this.changeRequestForm.controls.oldLocation.setValue(this.pagedRequests[0].oldLocation);
+    this.changeRequestForm.controls.newLocation.setValue(this.filteredLocations[0].id);
+  }
+
+  accept() {
+    if (this.changeRequestForm.invalid) return;
+    this.locationService.acceptChangeRequest(this.pagedRequests[0].userId, this.pagedRequests[0].oldLocation, this.changeRequestForm.controls.newLocation.value);
+    this.initData();
+    this.paginate();
+  }
+
+  reject() {
+    this.locationService.rejectChangeRequest(this.pagedRequests[0].userId, this.pagedRequests[0].oldLocation);
+    this.initData();
+    this.paginate();
   }
 
 }

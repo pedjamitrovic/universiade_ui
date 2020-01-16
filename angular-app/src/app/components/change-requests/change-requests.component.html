@@ -18,7 +18,7 @@
                 </button>
                 <mat-card *ngFor="let r of pagedRequests; index as i" class="form-card mat-elevation-z3">
                     <mat-card-header fxLayout="row" fxLayoutAlign="center">
-                        <mat-card-title style="text-align: center;">{{r.userId}}</mat-card-title>
+                        <mat-card-title fxLayout="row" fxLayoutAlign="center center"><img class="mat-elevation-z3" id="profile-image-circle-cr" src="assets/pictures/users/{{r.userId}}/profile.jpg">{{userService.getUser(r.userId).username}}</mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
                         <p class="description">{{r.description}}</p>
@@ -26,10 +26,10 @@
                             fxLayoutAlign="space-around center">
                             <mat-form-field color="accent">
                                 <mat-label>Old location</mat-label>
-                                <mat-select placeholder="Old location"
+                                <mat-select matInput placeholder="Old location"
                                     [formControl]="changeRequestForm.controls['oldLocation']">
-                                    <mat-option *ngFor="let location of locations" [value]="location">
-                                        {{location}}
+                                    <mat-option [value]="r.oldLocation">
+                                        {{r.oldLocation}}
                                     </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="changeRequestForm.controls['oldLocation'].invalid">Old location is
@@ -38,10 +38,10 @@
                             </mat-form-field>
                             <mat-form-field color="accent">
                                 <mat-label>New location</mat-label>
-                                <mat-select placeholder="New location"
+                                <mat-select matInput placeholder="New location"
                                     [formControl]="changeRequestForm.controls['newLocation']">
-                                    <mat-option *ngFor="let location of locations" [value]="location">
-                                        {{location}}
+                                    <mat-option *ngFor="let l of filteredLocations" [value]="l.id">
+                                        {{l.name}}
                                     </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="changeRequestForm.controls['newLocation'].invalid">New location is
@@ -50,9 +50,9 @@
                             </mat-form-field>
                         </form>
                         <div style="margin-top: 20px;" fxLayout="row" fxLayoutAlign="end end">
-                            <button mat-raised-button color="accent" (click)="like()">ACCEPT</button>
+                            <button mat-raised-button color="accent" (click)="accept()">ACCEPT</button>
                             <button style="margin-left: 10px;" mat-raised-button color="warn"
-                                (click)="like()">REJECT</button>
+                                (click)="reject()">REJECT</button>
                         </div>
                     </mat-card-content>
                 </mat-card>

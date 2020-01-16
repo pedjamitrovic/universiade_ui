@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'src/app/services/message.service';
+import { VenueService } from 'src/app/services/venue.service';
 
 @Component({
   selector: 'app-reserve-venue',
@@ -9,7 +10,7 @@ import { MessageService } from 'src/app/services/message.service';
 })
 export class ReserveVenueComponent implements OnInit {
   reserveVenueForm: FormGroup;
-  constructor(private message: MessageService) { }
+  constructor(private message: MessageService, private venueService: VenueService) { }
 
   ngOnInit() {
     this.reserveVenueForm = new FormGroup({
@@ -31,6 +32,6 @@ export class ReserveVenueComponent implements OnInit {
       this.message.error('End date must be after start date');
       return;
     }
-    this.message.success('Successfully reserved venue');
+    this.venueService.reserveVenue(this.reserveVenueForm.controls.startDate.value, this.reserveVenueForm.controls.endDate.value);
   }
 }

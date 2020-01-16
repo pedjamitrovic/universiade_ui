@@ -14,7 +14,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" color="accent">
                     <mat-label>Password</mat-label>
-                    <input matInput [formControl]="loginForm.controls['password']" (focus)="onFieldFocus()">
+                    <input type="password" matInput [formControl]="loginForm.controls['password']" (focus)="onFieldFocus()">
                     <mat-error *ngIf="loginForm.controls['password'].invalid">Password is required</mat-error>
                 </mat-form-field>
                 <mat-error class="login-error">{{errorMessage}}</mat-error>

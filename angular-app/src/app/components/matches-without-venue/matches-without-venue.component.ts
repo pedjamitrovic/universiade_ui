@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { MessageService } from 'src/app/services/message.service';
+import { MatchService } from 'src/app/services/match.service';
+import { VenueService } from 'src/app/services/venue.service';
+import { Venue } from 'src/app/model/venue';
+import { Match } from 'src/app/model/match';
 
 @Component({
   selector: 'app-matches-without-venue',
@@ -8,38 +13,39 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 })
 export class MatchesWithoutVenueComponent implements OnInit {
   matchesWithoutVenueForm: FormGroup;
-  venues: any[] = ['1st venue', '2nd venue'];
+  venues: Venue[];
+  filteredVenues: Venue[];
+  matchesWithoutVenue: Match[];
+  pagedMatches: Match[];
   paginator: { page: number, itemsPerPage: number } = { page: 0, itemsPerPage: 1 };
-  matchesWithoutVenue: {userId: number, description: string, oldLocation: string}[] = [
-    {
-      userId: 1,
-      description: 'The restaurant is awful! I want to eat in a restaurant, not in a butcher shop.',
-      oldLocation: 'Mesara Momčilo'
-    },
-    {
-      userId: 2,
-      description: 'The restaurant is awful! Can I eat in a restaurant with Italian cuisine?',
-      oldLocation: 'Mesara Momčilo'
-    },
-    {
-      userId: 3,
-      description: 'The restaurant is awful! Can I eat in a restaurant with Spanish cuisine?',
-      oldLocation: 'Mesara Momčilo'
-    }
-  ];
-  pagedMatches: {userId: number, description: string, oldLocation: string}[];
 
-  constructor() { }
+  constructor(private message: MessageService, private matchService: MatchService, private venueService: VenueService) {
+    this.initForm();
+  }
 
   ngOnInit() {
-    this.initForm();
+    this.initData();
     this.paginate();
   }
 
   initForm() {
     this.matchesWithoutVenueForm = new FormGroup({
-      venue: new FormControl({value: '1st location'}, [Validators.required])
+      venue: new FormControl({ value: '' }, [Validators.required])
     });
+  }
+
+  initData() {
+    this.matchesWithoutVenue = this.matchService.matches.filter((m) => !m.venue);
+    this.venues = this.venueService.venues;
+  }
+
+  filterVenues() {
+    if (!this.matchesWithoutVenue.length) return;
+    this.matchesWithoutVenueForm.controls.venue.setValue('');
+    this.matchesWithoutVenueForm.controls.venue.markAsUntouched();
+    let matchDate = this.pagedMatches[0].date;
+    let reservedVenues = this.matchService.matches.filter((m) => m.venue && m.date === matchDate).map((m) => m.venue);
+    this.filteredVenues = this.venues.filter((v) => !reservedVenues.includes(v.name) && v.fromDate <= matchDate && v.toDate >= matchDate);
   }
 
   nextPage() {
@@ -67,5 +73,13 @@ export class MatchesWithoutVenueComponent implements OnInit {
       this.paginator.page * this.paginator.itemsPerPage,
       this.paginator.page * this.paginator.itemsPerPage + this.paginator.itemsPerPage
     );
+    this.filterVenues();
+  }
+
+  assignVenue() {
+    if (this.matchesWithoutVenueForm.invalid) return;
+    this.matchService.assignVenue(this.pagedMatches[0].id, this.matchesWithoutVenueForm.controls.venue.value);
+    this.initData();
+    this.paginate();
   }
 }

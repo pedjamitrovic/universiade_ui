@@ -14,7 +14,7 @@ const locations: Location[] = [
             },
             {
                 userId: 3,
-                description: null,
+                description: 'Ja sam oženjen, ne izlazim toliko.',
                 rating: 2
             },
             {
@@ -25,7 +25,7 @@ const locations: Location[] = [
         ],
         lat: 44.824623,
         lng: 20.399805,
-        changeRequests: []
+        changeRequests: [{ userId: 4, description: 'Užasan smeštaj. Zaslužujem da budem smešten u Hajatu.', oldLocation: 'Studentski grad', oldLocationType: LocationType.Accomodation }]
     },
     {
         type: LocationType.Restaurant,
@@ -90,12 +90,19 @@ const locations: Location[] = [
         name: 'KFC Delta City',
         description: 'Ovde se svaki dan ručno priprema kvalitetna piletina i zato su naši sendviči, Hot Wings i Strips neverovatno dobrog ukusa. Posetite nas!',
         reviews: [
-        ], 
+        ],
         lat: 44.805781,
         lng: 20.405329,
         changeRequests: []
     },
 ];
+
+export class ChangeRequest {
+    userId: number;
+    description: string;
+    oldLocation: string;
+    oldLocationType: LocationType;
+}
 
 export class Location {
     type: LocationType;
@@ -105,7 +112,7 @@ export class Location {
     reviews: { userId: number, description: string, rating: number }[];
     lat: number;
     lng: number;
-    changeRequests: { userId: number, description: string, oldLocation: number }[];
+    changeRequests: ChangeRequest[];
 
     static InitDb() {
         if (!localStorage.getItem('locations')) { localStorage.setItem('locations', JSON.stringify(locations)); }

@@ -22,4 +22,16 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  saveChanges() {
+    if (this.profileForm.invalid) return;
+    this.userService.changeProfileInfo(
+      this.profileForm.controls.firstName.value,
+      this.profileForm.controls.lastName.value,
+      this.profileForm.controls.phoneNumber.value,
+      this.profileForm.controls.homeAddress.value,
+      this.profileForm.controls.username.value,
+      this.profileForm.controls.password.value,
+    );
+  }
+
 }

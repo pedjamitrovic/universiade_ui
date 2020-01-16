@@ -10,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  errorMessage: string = 'Wrong credentials.';
+  errorMessage: string;
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
@@ -28,9 +28,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.login('pedja_admin', 'sifra123');
+    if (this.loginForm.invalid) return;
+    this.userService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
     if (!this.userService.user) {
-      alert('No user');
+      this.errorMessage = 'Wrong credentials.';
     }
   }
 
