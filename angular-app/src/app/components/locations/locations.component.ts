@@ -37,7 +37,7 @@ export class LocationsComponent implements OnInit, AfterViewInit {
 
     let mapOptions: google.maps.MapOptions = {
       center: mapCenter,
-      zoom: 16
+      zoom: 14
     };
 
     this.map = new google.maps.Map(this.gmap.nativeElement, mapOptions);
