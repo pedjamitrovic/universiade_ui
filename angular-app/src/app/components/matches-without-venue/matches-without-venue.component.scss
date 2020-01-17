@@ -1,13 +1,19 @@
 .matches-without-venue-card{
     mat-card-content {
+        min-width: 300px;
         margin: 0 16px;
         .description {
             margin-bottom: 30px;
         }
         .form-card {
-            margin: 10px;
+            margin: 5px;
             min-width: 75%;
-            min-height: 125px;
+            min-height: 206px;
         }
+    }
+    .paginate-button {
+        height: 150px;
+        min-width: 36px !important;
+        padding: 0 !important;
     }
 }

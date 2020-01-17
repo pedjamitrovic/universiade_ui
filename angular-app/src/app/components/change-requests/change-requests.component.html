@@ -11,8 +11,8 @@
         <div style="min-height: 300px;" fxLayout="column" fxLayoutAlign="center center">
             <mat-card-title *ngIf="!changeRequests.length" style="text-align: center;">Sorry, there are no change
                 requests right now.</mat-card-title>
-            <div *ngIf="changeRequests.length" fxLayout="row" fxLayoutAlign="center stretch">
-                <button class="mat-elevation-z3" mat-raised-button color="primary"
+            <div *ngIf="changeRequests.length" fxLayout="row" fxLayoutAlign="center center">
+                <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary"
                     [disabled]="!previousExists() ? true : null" (click)="previousPage()">
                     <mat-icon>arrow_back_ios</mat-icon>
                 </button>
@@ -56,7 +56,7 @@
                         </div>
                     </mat-card-content>
                 </mat-card>
-                <button class="mat-elevation-z3" mat-raised-button color="primary"
+                <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary"
                     [disabled]="!nextExists() ? true : null" (click)="nextPage()">
                     <mat-icon>arrow_forward_ios</mat-icon>
                 </button>

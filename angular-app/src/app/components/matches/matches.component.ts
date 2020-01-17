@@ -1,22 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
 import { FormGroup, FormControl } from '@angular/forms';
-
-export interface Match {
-  host: string;
-  visitor: string;
-  date: string;
-  time: string;
-  venue: string;
-}
-
-const matches: Match[] = [
-  { host: 'Serbia', visitor: 'USA', date: '2020-05-10', time: '21:00', venue: 'Kombank Arena' },
-  { host: 'Serbia', visitor: 'Spain', date: '2020-05-11', time: '21:00', venue: 'Aleksandar Nikolić Hall' },
-  { host: 'Serbia', visitor: 'Italy', date: '2020-05-12', time: '21:00', venue: 'Kombank Arena' },
-  { host: 'Serbia', visitor: 'France', date: '2020-05-13', time: '21:00', venue: 'Kombank Arena' }
-];
+import { Match } from 'src/app/model/match';
+import { UserService } from 'src/app/services/user.service';
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: 'app-matches',
@@ -24,13 +11,20 @@ const matches: Match[] = [
   styleUrls: ['./matches.component.scss']
 })
 export class MatchesComponent implements OnInit {
+  matches: Match[];
   filterForm: FormGroup;
   displayedColumns: string[];
-  dataSource = new MatTableDataSource(matches);
+  dataSource: MatTableDataSource<Match>;
 
-  constructor() { }
+  constructor(private userService: UserService) {
+    this.initForm();
+  }
 
   ngOnInit() {
+    this.initData();
+  }
+
+  initForm() {
     this.filterForm = new FormGroup({
       date: new FormControl('', []),
       time: new FormControl('', []),
@@ -39,21 +33,36 @@ export class MatchesComponent implements OnInit {
     this.displayedColumns = ['host', 'visitor', 'date', 'time', 'venue'];
   }
 
+  initData() {
+    this.matches = this.userService.getMatches();
+    this.dataSource = new MatTableDataSource(this.matches);
+  }
+
   filterMatches() {
-    let filteredMatches = matches;
+    let filteredMatches = this.matches;
     if (this.filterForm.controls.date.value) {
       filteredMatches = filteredMatches.filter(
-        (match) => match.date.trim().toLowerCase().includes(this.filterForm.controls.date.value.trim().toLowerCase())
+        (match) => {
+          let date = formatDate(match.date, 'dd.MM.yyyy.', 'en-US');
+          return date.includes(this.filterForm.controls.date.value.trim());
+        }
       );
     }
     if (this.filterForm.controls.time.value) {
       filteredMatches = filteredMatches.filter(
-        (match) => match.time.trim().toLowerCase().includes(this.filterForm.controls.time.value.trim().toLowerCase())
+        (match) => {
+          let time = formatDate(match.date, 'HH:mm', 'en-US');
+          return time.includes(this.filterForm.controls.time.value.trim());
+        }
       );
     }
     if (this.filterForm.controls.venue.value) {
       filteredMatches = filteredMatches.filter(
-        (match) => match.venue.trim().toLowerCase().includes(this.filterForm.controls.venue.value.trim().toLowerCase())
+        (match) => {
+          let venue = match.venue ? match.venue.toLowerCase() : '?';
+          let enteredVenue = this.filterForm.controls.venue.value.trim().toLowerCase();
+          return venue.includes(enteredVenue);
+        }
       );
     }
     this.dataSource = new MatTableDataSource(filteredMatches);

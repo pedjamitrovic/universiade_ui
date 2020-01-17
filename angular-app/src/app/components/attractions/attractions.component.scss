@@ -1,11 +1,21 @@
 .attractions-card{
     .attraction-card {
-        margin: 10px;
+        margin: 0 10px;
+        mat-card-content {
+            margin: 0 16px;
+            width: 200px;
+            height: 200px;
+        }
     }
     mat-card-content {
         margin: 0 16px;
         .description {
             margin-bottom: 30px;
         }
+    }
+    .paginate-button {
+        height: 200px;
+        min-width: 36px !important;
+        padding: 0 !important;
     }
 }

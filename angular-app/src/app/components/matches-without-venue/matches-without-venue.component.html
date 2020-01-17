@@ -11,8 +11,8 @@
         <div style="min-height: 200px;" fxLayout="column" fxLayoutAlign="center center">
             <mat-card-title *ngIf="!matchesWithoutVenue.length" style="text-align: center;">Sorry, there are no matches
                 without venue right now.</mat-card-title>
-            <div *ngIf="matchesWithoutVenue.length" fxLayout="row" fxLayoutAlign="center stretch">
-                <button class="mat-elevation-z3" mat-raised-button color="primary"
+            <div *ngIf="matchesWithoutVenue.length" fxLayout="row" fxLayoutAlign="center center">
+                <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary"
                     [disabled]="!previousExists() ? true : null" (click)="previousPage()">
                     <mat-icon>arrow_back_ios</mat-icon>
                 </button>
@@ -22,7 +22,7 @@
                         <mat-card-subtitle style="text-align: center;">{{m.date | date: 'dd.MM.yyyy. HH:mm'}}
                         </mat-card-subtitle>
                     </mat-card-header>
-                    <mat-card-content *ngIf="filteredVenues.length">
+                    <mat-card-content style="margin-top: 40px" *ngIf="filteredVenues.length">
                         <form [formGroup]="matchesWithoutVenueForm" autocomplete="off" fxLayout="row"
                             fxLayoutAlign="space-around center">
                             <mat-form-field color="accent">
@@ -42,11 +42,13 @@
                             <button mat-raised-button color="primary" (click)="assignVenue()">ASSIGN</button>
                         </div>
                     </mat-card-content>
-                    <mat-card-content *ngIf="!filteredVenues.length" fxLayout="column" fxLayoutAlign="center center">
-                        No available venues. <a mat-button color="accent" routerLink="/reserve-venue">Reserve a new one.</a>
+                    <mat-card-content style="margin-top: 40px" *ngIf="!filteredVenues.length" fxLayout="column"
+                        fxLayoutAlign="center center">
+                        No available venues. <a mat-button color="accent" routerLink="/reserve-venue">Reserve a new
+                            one.</a>
                     </mat-card-content>
                 </mat-card>
-                <button class="mat-elevation-z3" mat-raised-button color="primary"
+                <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary"
                     [disabled]="!nextExists() ? true : null" (click)="nextPage()">
                     <mat-icon>arrow_forward_ios</mat-icon>
                 </button>

@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AttractionService } from 'src/app/services/attraction.service';
+import { Attraction } from 'src/app/model/attraction';
 
 @Component({
   selector: 'app-attractions',
@@ -7,15 +9,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./attractions.component.scss']
 })
 export class AttractionsComponent implements OnInit {
-  attractions: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  pagedAttractions: number[];
+  attractions: Attraction[];
+  pagedAttractions: Attraction[];
   paginator: { page: number, itemsPerPage: number } = { page: 0, itemsPerPage: 1 };
-  constructor(private router: Router) { }
+  constructor(private router: Router, private attractionService: AttractionService) { }
 
   ngOnInit() {
+    this.initData();
     this.paginator.itemsPerPage = Math.floor(window.innerWidth / 400);
     this.paginator.page = 0;
     this.paginate();
+  }
+
+  initData() {
+    this.attractions = this.attractionService.attractions;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -55,7 +62,7 @@ export class AttractionsComponent implements OnInit {
   }
 
   attraction(a: any) {
-    this.router.navigate(['attraction', a]);
+    this.router.navigate(['attraction', a.id]);
   }
 
 }

@@ -3,12 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 import { MessageService } from './message.service';
 import { LocationType } from '../model/location';
+import { MatchService } from './match.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private router: Router, private message: MessageService) {
+  constructor(private router: Router, private message: MessageService, private matchService: MatchService) {
     User.InitDb();
   }
 
@@ -72,6 +73,12 @@ export class UserService {
 
   getUser(userId: number): User {
     return this.users.find((u) => u.id === userId);
+  }
+
+  getMatches() {
+    let matchIds = this.user.matches;
+    let matches = this.matchService.matches;
+    return matches.filter((m) => matchIds.includes(m.id));
   }
 
   get users(): User[] {
