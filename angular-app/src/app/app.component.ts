@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { UserService } from './services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,41 +6,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-app';
+  title = 'Universiade 2020';
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor() {
 
-  }
-
-  locations() {
-    this.router.navigate(['locations']);
-  }
-
-  matches() {
-    this.router.navigate(['matches']);
-  }
-
-  attractions() {
-    this.router.navigate(['attractions']);
-  }
-
-  changeRequests() {
-    this.router.navigate(['change-requests']);
-  }
-
-  matchesWithoutVenue() {
-    this.router.navigate(['matches-without-venue']);
-  }
-
-  reserveVenue() {
-    this.router.navigate(['reserve-venue']);
-  }
-
-  profile() {
-    this.router.navigate(['profile']);
-  }
-
-  logout() {
-    this.userService.logout();
   }
 }

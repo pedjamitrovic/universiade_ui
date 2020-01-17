@@ -31,6 +31,9 @@ import { ChangeRequestsComponent } from './components/change-requests/change-req
 import { MatchesWithoutVenueComponent } from './components/matches-without-venue/matches-without-venue.component';
 import { ReserveVenueComponent } from './components/reserve-venue/reserve-venue.component';
 import { MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import { MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatSnackBarM
     ChangeRequestsComponent,
     MatchesWithoutVenueComponent,
     ReserveVenueComponent,
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,9 @@ import { MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatSnackBarM
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    LayoutModule,
+    MatListModule,
   ],
   exports: [
   ],

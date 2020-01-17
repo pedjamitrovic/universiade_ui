@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav mat-elevation-z3" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="userService.user && !(isHandset$ | async)">
+    <mat-toolbar style="width: 100%; text-align: center;"><span style="width: 100%;">Menu</span></mat-toolbar>
+    <mat-nav-list>
+      <button mat-button *ngIf="userService?.user?.type === 0" [routerLink]="['/locations']"
+        [routerLinkActive]="'is-active'">Locations</button>
+      <button mat-button *ngIf="userService?.user?.type === 0" [routerLink]="['/matches']"
+        [routerLinkActive]="'is-active'">Matches</button>
+      <button mat-button *ngIf="userService?.user?.type === 0" [routerLink]="['/attractions']"
+        [routerLinkActive]="'is-active'">Tourist attractions</button>
+      <button mat-button *ngIf="userService?.user?.type === 1" [routerLink]="['/change-requests']"
+        [routerLinkActive]="'is-active'">Change requests</button>
+      <button mat-button *ngIf="userService?.user?.type === 1" [routerLink]="['/matches-without-venue']"
+        [routerLinkActive]="'is-active'">Matches without venue</button>
+      <button mat-button *ngIf="userService?.user?.type === 1" [routerLink]="['/reserve-venue']"
+        [routerLinkActive]="'is-active'">Reserve venue</button>
+      <button *ngIf="userService?.user" mat-button (click)="logout()">Logout</button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlex>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="userService.user && (isHandset$ | async)">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Universiade 2020</span>
+      <span class="fill-remaining-space"></span>
+      <button *ngIf="userService.user" mat-button [routerLink]="['/profile']"
+      [routerLinkActive]="'is-active'"><img class="mat-elevation-z3"
+          id="profile-image-circle"
+          src="assets/pictures/users/{{userService.user.id}}/profile.jpg"><span>{{userService.user.firstName}}
+          {{userService.user.lastName}}</span></button>
+    </mat-toolbar>
+    <div class="router-outlet">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
