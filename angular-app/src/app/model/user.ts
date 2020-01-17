@@ -11,7 +11,7 @@ const users: User[] = [
         username: 'vlada_student',
         password: 'sifra123',
         accomodation: 1,
-        restaurant: 1,
+        restaurant: 2,
         matches: [1, 2, 3, 4]
     },
     {
@@ -24,7 +24,7 @@ const users: User[] = [
         username: 'miki_student',
         password: 'sifra123',
         accomodation: 1,
-        restaurant: 1,
+        restaurant: 2,
         matches: [1, 2, 3, 4]
     },
     {
@@ -37,7 +37,7 @@ const users: User[] = [
         username: 'moma_student',
         password: 'sifra123',
         accomodation: 1,
-        restaurant: 1,
+        restaurant: 2,
         matches: [1, 2, 3, 4]
     },
     {
@@ -50,7 +50,7 @@ const users: User[] = [
         username: 'lule_student',
         password: 'sifra123',
         accomodation: 1,
-        restaurant: 1,
+        restaurant: 2,
         matches: [1, 2, 3, 4]
     },
     {
@@ -63,7 +63,7 @@ const users: User[] = [
         username: 'pedja_admin',
         password: 'sifra123',
         accomodation: 1,
-        restaurant: 1,
+        restaurant: 2,
         matches: [1, 2, 3, 4]
     },
 ];

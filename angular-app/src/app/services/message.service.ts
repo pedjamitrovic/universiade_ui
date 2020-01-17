@@ -9,10 +9,10 @@ export class MessageService {
   }
 
   error(message: string) {
-    this.snackbar.open(message, 'Ok', {duration: 3000, panelClass: 'error-snackbar'});
+    this.snackbar.open(message, 'Ok', {duration: 1500, panelClass: 'error-snackbar'});
   }
 
   success(message: string) {
-    this.snackbar.open(message, 'Ok', {duration: 3000, panelClass: 'success-snackbar'});
+    this.snackbar.open(message, 'Ok', {duration: 1500, panelClass: 'success-snackbar'});
   }
 }

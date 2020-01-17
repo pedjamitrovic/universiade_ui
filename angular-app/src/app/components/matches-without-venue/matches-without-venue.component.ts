@@ -25,7 +25,6 @@ export class MatchesWithoutVenueComponent implements OnInit {
 
   ngOnInit() {
     this.initData();
-    this.paginate();
   }
 
   initForm() {
@@ -37,6 +36,8 @@ export class MatchesWithoutVenueComponent implements OnInit {
   initData() {
     this.matchesWithoutVenue = this.matchService.matches.filter((m) => !m.venue);
     this.venues = this.venueService.venues;
+    this.paginator.page = 0;
+    this.paginate();
   }
 
   filterVenues() {
@@ -77,7 +78,10 @@ export class MatchesWithoutVenueComponent implements OnInit {
   }
 
   assignVenue() {
-    if (this.matchesWithoutVenueForm.invalid) return;
+    if (this.matchesWithoutVenueForm.invalid) {
+      this.message.error('You must select a venue for this match');
+      return;
+    }
     this.matchService.assignVenue(this.pagedMatches[0].id, this.matchesWithoutVenueForm.controls.venue.value);
     this.initData();
     this.paginate();

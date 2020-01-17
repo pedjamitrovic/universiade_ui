@@ -17,6 +17,17 @@
             margin: 10px;
             min-width: 50%;
             min-height: 125px;
+            #profile-image-circle-location{
+                width: 48px;
+                height: 48px; 
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        }
+        .paginate-button {
+            height: 200px;
+            min-width: 36px !important;
+            padding: 0 !important;
         }
     }
 }

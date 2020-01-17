@@ -4,5 +4,10 @@
         .description {
             margin-bottom: 30px;
         }
+        mat-card-actions {
+            button {
+                min-width: 150px;
+            }
+        }
     }
 }

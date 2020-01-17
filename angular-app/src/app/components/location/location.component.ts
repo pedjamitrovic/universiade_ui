@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { StarRatingComponent } from 'ng-starrating';
+import { Location, Review, ChangeRequest } from 'src/app/model/location';
+import { LocationService } from 'src/app/services/location.service';
+import { UserService } from 'src/app/services/user.service';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-location',
@@ -10,46 +13,39 @@ import { StarRatingComponent } from 'ng-starrating';
   styleUrls: ['./location.component.scss']
 })
 export class LocationComponent implements OnInit, OnDestroy {
-  location = {
-    id: 1,
-    name: 'Mesara Momčilo',
-    description: 'Description',
-    reviews: [
-      {
-        username: 'miki_student',
-        comment: 'Comment',
-        rating: 4
-      },
-      {
-        username: 'moma_student',
-        comment: null,
-        rating: 3
-      },
-      {
-        username: 'lule_student',
-        comment: 'Comment',
-        rating: null
-      }
-    ]
-  };
+  location: Location;
   averageRating: number;
   roundAverageRating: number;
   subscription: Subscription;
   id: number;
   paginator: { page: number, itemsPerPage: number } = { page: 0, itemsPerPage: 1 };
-  pagedReviews: {username: string, comment: string, rating: number}[];
+  pagedReviews: Review[];
+  changeRequest: ChangeRequest = new ChangeRequest();
+  review: Review = new Review();
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private locationService: LocationService, private userService: UserService, private message: MessageService) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
       this.id = +params.id;
+      this.initData();
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  initData() {
+    this.location = this.locationService.getLocation(this.id);
+
+    this.initForm();
+
     let sum: number = 0;
     let count: number = 0;
-    this.location.reviews.forEach((e)=>{
-      if(e.rating) {
-        sum += e.rating;
+    this.location.reviews.forEach((r) => {
+      if (r.rating) {
+        sum += r.rating;
         ++count;
       }
     });
@@ -58,15 +54,33 @@ export class LocationComponent implements OnInit, OnDestroy {
     this.paginate();
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  initForm() {
+    this.changeRequest.userId = this.userService.user.id;
+    this.changeRequest.oldLocation = this.location.name;
+    this.changeRequest.oldLocationType = this.location.type;
+    let changeRequest = this.location.changeRequests.find((cr) => cr.userId === this.userService.user.id);
+    if (changeRequest) {
+      this.changeRequest.description = changeRequest.description;
+    }
+
+    this.review.userId = this.userService.user.id;
+    this.review.rating = 0;
+    let review = this.location.reviews.find((r) => r.userId === this.userService.user.id);
+    if (review) {
+      this.review.rating = review.rating;
+      this.review.description = review.description;
+    }
   }
 
-  onRate(event: { oldValue: number, newValue: number, starRating: StarRatingComponent }) {
-    if (event.oldValue === event.newValue) {
-      event.starRating.value = 0;
+  onRate(event: { oldValue: any, newValue: any, starRating: StarRatingComponent }) {
+    let ov = parseInt(event.oldValue.toString());
+    let nv = parseInt(event.newValue.toString());
+    if (ov === nv) {
+       this.review.rating = event.starRating.value = 0;
     }
-    alert(event.starRating.value);
+    else {
+      this.review.rating = nv;
+    }
   }
 
   nextPage() {
@@ -94,5 +108,23 @@ export class LocationComponent implements OnInit, OnDestroy {
       this.paginator.page * this.paginator.itemsPerPage,
       this.paginator.page * this.paginator.itemsPerPage + this.paginator.itemsPerPage
     );
+  }
+
+  postReview() {
+    if (!this.review.description && !this.review.rating) {
+      this.message.error('Please provide description or rating to post review');
+      return;
+    }
+    this.locationService.postReview(this.location.id, this.review);
+    this.initData();
+  }
+
+  submitRequest() {
+    if (!this.changeRequest.description) {
+      this.message.error('Please provide reason for change before submitting request');
+      return;
+    }
+    this.locationService.submitRequest(this.location.id, this.changeRequest);
+    this.initData();
   }
 }

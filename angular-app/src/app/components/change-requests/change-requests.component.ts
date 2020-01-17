@@ -37,6 +37,7 @@ export class ChangeRequestsComponent implements OnInit {
     this.locations = this.locationService.locations;
     this.changeRequests = [];
     this.locations.forEach((l) => this.changeRequests.push(...l.changeRequests));
+    this.paginator.page = 0;
   }
 
   nextPage() {

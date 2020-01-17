@@ -31,7 +31,7 @@ const locations: Location[] = [
         type: LocationType.Restaurant,
         id: 2,
         name: 'Mesara Momčilo',
-        description: 'Studentski dom Studentski grad, popularno poznat kao Studenjak, predstavlja jedno od najvećih studentskih naselja na Balkanu. Ima četiri bloka, od kojih svaki ima F i G krilo. Ovaj dom nastao je u periodu od 1949. do 1955. godine, ali je krajem devedestih godina prošlog veka izvršena rekonstrukcija. Jedan deo kapaciteta koristi se u svrhu hostela tokom cele godine, dok je tokom leta taj kapacitet znatno veći. Studenski dom Studentski grad raspolaže sa preko 4.000 krevetnih mesta, a sobe su dvokrevetne, trokrevetne i apartmani. U sobama se nalaze, pored osnovne opreme u vidu kreveta, radnih stolova i plakara i polica, još i hodnik sa čajnom kuhinjom i kupatilom, direktna telefonska linija, interna kablovska televizija i internet konekcija. Dvokrevetne sobe imaju i terasu. Svaki blok Studentskog doma Studentski grad raspolaže sa čitaonicama, crtaonicama, perionicama veša, TV salom, prodavnicama mešovite robe i video nadzorom. Prateća infrastruktura Studenjaka uključuje i studentski restoran, gril restoran, letnju baštu Fontana, diskoteku, poštu, menjačnicu i internet centar.',
+        description: 'Smešten veoma blizu Studentskog grada, predstavlja jedno od omiljenih mesta studenata gde mogu kupiti brzu hranu brzo i jeftino.',
         reviews: [
             {
                 userId: 2,
@@ -104,12 +104,18 @@ export class ChangeRequest {
     oldLocationType: LocationType;
 }
 
+export class Review {
+    userId: number;
+    description: string;
+    rating: number;
+}
+
 export class Location {
     type: LocationType;
     id: number;
     name: string;
     description: string;
-    reviews: { userId: number, description: string, rating: number }[];
+    reviews: Review[];
     lat: number;
     lng: number;
     changeRequests: ChangeRequest[];

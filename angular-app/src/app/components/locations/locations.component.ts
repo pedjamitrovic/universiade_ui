@@ -1,6 +1,9 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { UserService } from 'src/app/services/user.service';
+import { LocationService } from 'src/app/services/location.service';
+import { Location } from 'src/app/model/location';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-locations',
@@ -11,29 +14,26 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
   map: google.maps.Map;
 
-  hotel: any = {
-    lat: 44.824623,
-    lng: 20.399805,
-    label: 'Studentski grad'
-  };
+  accomodation: Location;
+  restaurant: Location;
 
-  restaurant: any = {
-    lat: 44.824022,
-    lng: 20.402407,
-    label: 'Mesara Momčilo'
-  };
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService, private locationService: LocationService, private message: MessageService) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
+    this.initData();
     this.mapInitializer();
   }
 
+  initData() {
+    this.accomodation = this.locationService.getLocation(this.userService.user.accomodation);
+    this.restaurant = this.locationService.getLocation(this.userService.user.restaurant);
+  }
+
   mapInitializer() {
-    let mapCenter = new google.maps.LatLng((this.hotel.lat + this.restaurant.lat) / 2, (this.hotel.lng + this.restaurant.lng) / 2)
+    let mapCenter = new google.maps.LatLng((this.accomodation.lat + this.restaurant.lat) / 2, (this.accomodation.lng + this.restaurant.lng) / 2)
 
     let mapOptions: google.maps.MapOptions = {
       center: mapCenter,
@@ -46,8 +46,8 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   }
 
   initMarkers() {
-    let marker = new google.maps.Marker({
-      position: new google.maps.LatLng(this.hotel.lat, this.hotel.lng),
+    let accomodationMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(this.accomodation.lat, this.accomodation.lng),
       animation: google.maps.Animation.DROP,
       map: this.map,
       icon: {
@@ -57,14 +57,14 @@ export class LocationsComponent implements OnInit, AfterViewInit {
       },
       label: {
         color: 'white',
-        text: this.hotel.label,
+        text: this.accomodation.name,
         fontWeight: 'bold',
         fontSize: '16px'
       }
     });
-    marker.addListener('click', () => this.location(marker.getLabel().text));
+    accomodationMarker.addListener('click', () => this.location(accomodationMarker.getLabel().text));
 
-    marker = new google.maps.Marker({
+    let restaurantMarker = new google.maps.Marker({
       position: new google.maps.LatLng(this.restaurant.lat, this.restaurant.lng),
       animation: google.maps.Animation.DROP,
       map: this.map,
@@ -75,17 +75,24 @@ export class LocationsComponent implements OnInit, AfterViewInit {
       },
       label: {
         color: 'white',
-        text: this.restaurant.label,
+        text: this.restaurant.name,
         fontWeight: 'bold',
         fontSize: '16px'
       }
     });
-    marker.addListener('click', () => this.location(marker.getLabel().text));
+    restaurantMarker.addListener('click', () => this.location(restaurantMarker.getLabel().text));
   }
 
   location(label: any) {
-    console.log(label);
-    this.router.navigate(['location', 1]);
+    if (this.accomodation.name === label) {
+      this.router.navigate(['location', this.accomodation.id]);
+    }
+    else if (this.restaurant.name === label) {
+      this.router.navigate(['location', this.restaurant.id]);
+    }
+    else {
+      this.message.error('Unexpected error happened');
+    }
   }
 
 }

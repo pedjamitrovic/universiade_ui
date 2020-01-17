@@ -156,7 +156,7 @@ export class Attraction {
     id: number;
     name: string;
     description: string;
-    likes: { userId: number }[];
+    likes: number[];
     pictures: { url: string }[];
 
     static InitDb() {

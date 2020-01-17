@@ -62,10 +62,9 @@ export class UserService {
     let user = users.find((u) => u.id === userId);
     if (newLocationType === LocationType.Accomodation) user.accomodation = newLocationId;
     else if (newLocationType === LocationType.Restaurant) user.restaurant = newLocationId;
-    this.user = user;
 
     for (let i = 0; i < users.length; ++i) {
-      if (users[i].id === this.user.id) users[i] = this.user;
+      if (users[i].id === user.id) users[i] = user;
     }
 
     this.users = users;

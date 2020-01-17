@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Location, LocationType } from '../model/location';
+import { Location, LocationType, Review, ChangeRequest } from '../model/location';
 import { MessageService } from './message.service';
 import { UserService } from './user.service';
 
@@ -40,6 +40,52 @@ export class LocationService {
     this.locations = locations;
 
     return location.type;
+  }
+
+  getLocation(locationId: number) {
+    return this.locations.find((l) => l.id === locationId);
+  }
+
+  postReview(locationId: number, review: Review) {
+    let locations = this.locations;
+
+    let location = locations.find((l) => l.id === locationId);
+
+    let updatedReview = false;
+
+    for (let i = 0; i < location.reviews.length; ++i) {
+      if (location.reviews[i].userId === review.userId) {
+        location.reviews[i] = review;
+        updatedReview = true;
+      }
+    }
+
+    if (!updatedReview) location.reviews.push(review);
+
+    this.locations = locations;
+
+    this.message.success('You have successfully posted review');
+  }
+
+  submitRequest(locationId: number, request: ChangeRequest) {
+    let locations = this.locations;
+
+    let location = locations.find((l) => l.id === locationId);
+
+    let updatedRequest = false;
+
+    for (let i = 0; i < location.changeRequests.length; ++i) {
+      if (location.changeRequests[i].userId === request.userId) {
+        location.changeRequests[i] = request;
+        updatedRequest = true;
+      }
+    }
+
+    if (!updatedRequest) location.changeRequests.push(request);
+
+    this.locations = locations;
+
+    this.message.success('You have successfully submitted change request');
   }
 
   get locations(): Location[] {
