@@ -1,0 +1,47 @@
+<div class="mat-elevation-z3 attractions-card">
+    <div>
+        <div>
+            <h1>Tourist attractions</h1>
+        </div>
+        <div>
+            <h2>Top experiences in Belgrade</h2>
+        </div>
+    </div>
+    <div>
+        <p class="description">
+            Outspoken, adventurous, proud and audacious: Belgrade ('White City') is by no means a 'pretty' capital, but
+            its gritty exuberance makes it one of Europe's most happening cities. While it hurtles towards a brighter
+            future, its chaotic past unfolds before your eyes: socialist blocks are squeezed between art nouveau
+            masterpieces, and remnants of the Habsburg legacy contrast with Ottoman relics and socialist modernist
+            monoliths. This is where the Sava and Danube Rivers kiss, an old-world culture that at once evokes
+            time-capsuled communist-era Yugoslavia and new-world, EU-contending cradle of cool.
+        </p>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary"
+                [disabled]="!previousExists() ? true : null" (click)="previousPage()">
+                <div>arrow_back_ios</div>
+            </button>
+            <div *ngFor="let a of pagedAttractions" class="attraction-card mat-elevation-z3">
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <div style="text-align: center;">{{a.name}}</div>
+                    <div style="text-align: center;">{{a.likes.length}} people like this
+                        <span style="vertical-align:sub;" class="material-icons">
+                            thumb_up
+                        </span></div>
+                </div>
+                <div style="margin: 10px 0;" fxLayout="row" fxLayoutAlign="center center">
+                    <img mat-card-image style="width: 100%; height: 100%;" src="{{a.pictures[0].url}}"
+                        alt="Attraction photo">
+                </div>
+                <div [align]="'end'">
+                    <button style="width: 100%;" class="mat-elevation-z3" mat-raised-button color="primary"
+                        (click)="attraction(a)">DETAILS</button>
+                </div>
+            </div>
+            <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary" [disabled]="!nextExists() ? true : null"
+                (click)="nextPage()">
+                <div>arrow_forward_ios</div>
+            </button>
+        </div>
+    </div>
+</div>

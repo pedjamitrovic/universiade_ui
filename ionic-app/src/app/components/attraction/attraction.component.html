@@ -1,0 +1,29 @@
+<div class="mat-elevation-z3 attr-card">
+    <div>
+        <div>
+            <h1>{{attraction.name}}</h1>
+        </div>
+        <div>
+            <h3>{{attraction.likes.length}} people like this
+                <span style="vertical-align:sub;" class="material-icons">
+                    thumb_up
+                </span></h3>
+        </div>
+    </div>
+    <div>
+        <p class="description">{{attraction.description}}</p>
+        <div>
+            <button mat-raised-button color="primary" (click)="openDialog()">IMAGE
+                GALLERY</button>
+            <div fxFlex></div>
+            <button *ngIf="liked" mat-raised-button color="warn" (click)="dislike()">
+                DISLIKE<span style="vertical-align:sub;font-size: 20px;margin-left: 5px;" class="material-icons">
+                    thumb_down
+                </span></button>
+            <button *ngIf="!liked" mat-raised-button color="accent" (click)="like()">
+                LIKE<span style="vertical-align:sub;font-size: 20px;margin-left: 5px;" class="material-icons">
+                    thumb_up
+                </span></button>
+        </div>
+    </div>
+</div>

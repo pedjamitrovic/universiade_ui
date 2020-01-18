@@ -1,0 +1,58 @@
+.location-card{
+    mat-card-subtitle {
+        .rating-label {
+            color: rgba(255,255,255,.7);
+        }
+        star-rating {
+            margin-bottom: 5px;
+            margin-right: 5px;
+        }
+    }
+    mat-card-content {
+        margin: 0 16px;
+        .description {
+            margin-bottom: 30px;
+        }
+        .review-card {
+            margin: 10px;
+            min-width: 50%;
+            min-height: 125px;
+            #profile-image-circle-location{
+                width: 48px;
+                height: 48px; 
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        }
+        .paginate-button {
+            height: 200px;
+            min-width: 36px !important;
+            padding: 0 !important;
+        }
+    }
+}
+
+
+.post-review-card {
+    margin: 10px 0px;
+    mat-card-content {
+        margin: 0 16px;
+        .description {
+            margin-bottom: 30px;
+        }
+        .post-review-form {
+            min-width: 150px;
+            width: 100%;
+            .rating-label {
+                color: rgba(255,255,255,.7);
+            }
+            star-rating {
+                margin-bottom: 5px;
+                margin-left: 5px;
+            }
+        }
+        .full-width {
+            width: 100%;
+        }
+    }
+}

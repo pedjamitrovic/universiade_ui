@@ -1,0 +1,13 @@
+.attr-card{
+    mat-card-content {
+        margin: 0 16px;
+        .description {
+            margin-bottom: 30px;
+        }
+        mat-card-actions {
+            button {
+                min-width: 150px;
+            }
+        }
+    }
+}
