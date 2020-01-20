@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  ElementRef
-} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { LocationService } from 'src/app/services/location.service';
@@ -23,14 +17,10 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   accomodation: Location;
   restaurant: Location;
 
-  constructor(
-    private router: Router,
-    private userService: UserService,
-    private locationService: LocationService,
-    private message: MessageService
-  ) {}
+  constructor(private router: Router, private userService: UserService, private locationService: LocationService, private message: MessageService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngAfterViewInit() {
     this.initData();
@@ -38,21 +28,14 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   }
 
   initData() {
-    this.accomodation = this.locationService.getLocation(
-      this.userService.user.accomodation
-    );
-    this.restaurant = this.locationService.getLocation(
-      this.userService.user.restaurant
-    );
+    this.accomodation = this.locationService.getLocation(this.userService.user.accomodation);
+    this.restaurant = this.locationService.getLocation(this.userService.user.restaurant);
   }
 
   mapInitializer() {
-    const mapCenter = new google.maps.LatLng(
-      (this.accomodation.lat + this.restaurant.lat) / 2,
-      (this.accomodation.lng + this.restaurant.lng) / 2
-    );
+    let mapCenter = new google.maps.LatLng((this.accomodation.lat + this.restaurant.lat) / 2, (this.accomodation.lng + this.restaurant.lng) / 2)
 
-    const mapOptions: google.maps.MapOptions = {
+    let mapOptions: google.maps.MapOptions = {
       center: mapCenter,
       zoom: 14
     };
@@ -63,16 +46,12 @@ export class LocationsComponent implements OnInit, AfterViewInit {
   }
 
   initMarkers() {
-    const accomodationMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(
-        this.accomodation.lat,
-        this.accomodation.lng
-      ),
+    let accomodationMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(this.accomodation.lat, this.accomodation.lng),
       animation: google.maps.Animation.DROP,
       map: this.map,
       icon: {
-        url:
-          'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png',
+        url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png',
         scaledSize: new google.maps.Size(27, 43),
         labelOrigin: new google.maps.Point(13, -15)
       },
@@ -83,20 +62,14 @@ export class LocationsComponent implements OnInit, AfterViewInit {
         fontSize: '16px'
       }
     });
-    accomodationMarker.addListener('click', () =>
-      this.location(accomodationMarker.getLabel().text)
-    );
+    accomodationMarker.addListener('click', () => this.location(accomodationMarker.getLabel().text));
 
-    const restaurantMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(
-        this.restaurant.lat,
-        this.restaurant.lng
-      ),
+    let restaurantMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(this.restaurant.lat, this.restaurant.lng),
       animation: google.maps.Animation.DROP,
       map: this.map,
       icon: {
-        url:
-          'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png',
+        url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless2_hdpi.png',
         scaledSize: new google.maps.Size(27, 43),
         labelOrigin: new google.maps.Point(13, -15)
       },
@@ -107,18 +80,19 @@ export class LocationsComponent implements OnInit, AfterViewInit {
         fontSize: '16px'
       }
     });
-    restaurantMarker.addListener('click', () =>
-      this.location(restaurantMarker.getLabel().text)
-    );
+    restaurantMarker.addListener('click', () => this.location(restaurantMarker.getLabel().text));
   }
 
   location(label: any) {
     if (this.accomodation.name === label) {
       this.router.navigate(['location', this.accomodation.id]);
-    } else if (this.restaurant.name === label) {
+    }
+    else if (this.restaurant.name === label) {
       this.router.navigate(['location', this.restaurant.id]);
-    } else {
+    }
+    else {
       this.message.error('Unexpected error happened');
     }
   }
+
 }

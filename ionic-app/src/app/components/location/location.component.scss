@@ -1,7 +1,7 @@
-.location-card{
+.location-card {
     mat-card-subtitle {
         .rating-label {
-            color: rgba(255,255,255,.7);
+            color: rgba(255, 255, 255, .7);
         }
         star-rating {
             margin-bottom: 5px;
@@ -15,11 +15,11 @@
         }
         .review-card {
             margin: 10px;
-            min-width: 50%;
-            min-height: 125px;
-            #profile-image-circle-location{
-                width: 48px;
-                height: 48px; 
+            min-width: 55vw;
+            min-height: 250px;
+            #profile-image-circle-location {
+                width: 36px;
+                height: 36px;
                 border-radius: 50%;
                 margin-right: 10px;
             }
@@ -32,7 +32,6 @@
     }
 }
 
-
 .post-review-card {
     margin: 10px 0px;
     mat-card-content {
@@ -44,7 +43,7 @@
             min-width: 150px;
             width: 100%;
             .rating-label {
-                color: rgba(255,255,255,.7);
+                color: rgba(255, 255, 255, .7);
             }
             star-rating {
                 margin-bottom: 5px;

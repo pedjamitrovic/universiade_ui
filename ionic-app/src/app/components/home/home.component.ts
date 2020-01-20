@@ -15,7 +15,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     if (this.userService.user.type === UserType.Student) {
       this.router.navigate(['locations']);
-    } else if (this.userService.user.type === UserType.Admin) {
+    }
+    else if (this.userService.user.type === UserType.Admin) {
       this.router.navigate(['change-requests']);
     }
   }

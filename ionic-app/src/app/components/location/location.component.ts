@@ -18,20 +18,12 @@ export class LocationComponent implements OnInit, OnDestroy {
   roundAverageRating: number;
   subscription: Subscription;
   id: number;
-  paginator: { page: number; itemsPerPage: number } = {
-    page: 0,
-    itemsPerPage: 1
-  };
+  paginator: { page: number, itemsPerPage: number } = { page: 0, itemsPerPage: 1 };
   pagedReviews: Review[];
   changeRequest: ChangeRequest = new ChangeRequest();
   review: Review = new Review();
 
-  constructor(
-    private route: ActivatedRoute,
-    private locationService: LocationService,
-    public userService: UserService,
-    private message: MessageService
-  ) {}
+  constructor(private route: ActivatedRoute, private locationService: LocationService, public userService: UserService, private message: MessageService) { }
 
   ngOnInit() {
     this.subscription = this.route.params.subscribe(params => {
@@ -49,15 +41,15 @@ export class LocationComponent implements OnInit, OnDestroy {
 
     this.initForm();
 
-    let sum = 0;
-    let count = 0;
-    this.location.reviews.forEach(r => {
+    let sum: number = 0;
+    let count: number = 0;
+    this.location.reviews.forEach((r) => {
       if (r.rating) {
         sum += r.rating;
         ++count;
       }
     });
-    if (count) { this.averageRating = sum / count; }
+    if (count) this.averageRating = sum / count;
     this.roundAverageRating = Math.round(this.averageRating);
     this.paginate();
   }
@@ -66,36 +58,27 @@ export class LocationComponent implements OnInit, OnDestroy {
     this.changeRequest.userId = this.userService.user.id;
     this.changeRequest.oldLocation = this.location.name;
     this.changeRequest.oldLocationType = this.location.type;
-    const changeRequest = this.location.changeRequests.find(
-      cr => cr.userId === this.userService.user.id
-    );
+    let changeRequest = this.location.changeRequests.find((cr) => cr.userId === this.userService.user.id);
     if (changeRequest) {
       this.changeRequest.description = changeRequest.description;
     }
 
     this.review.userId = this.userService.user.id;
     this.review.rating = 0;
-    const review = this.location.reviews.find(
-      r => r.userId === this.userService.user.id
-    );
+    let review = this.location.reviews.find((r) => r.userId === this.userService.user.id);
     if (review) {
       this.review.rating = review.rating;
       this.review.description = review.description;
     }
   }
 
-  onRate(event: {
-    oldValue: any;
-    newValue: any;
-    starRating: StarRatingComponent;
-  }) {
-    // tslint:disable-next-line: radix
-    const ov = parseInt(event.oldValue.toString());
-    // tslint:disable-next-line: radix
-    const nv = parseInt(event.newValue.toString());
+  onRate(event: { oldValue: any, newValue: any, starRating: StarRatingComponent }) {
+    let ov = parseInt(event.oldValue.toString());
+    let nv = parseInt(event.newValue.toString());
     if (ov === nv) {
-      this.review.rating = event.starRating.value = 0;
-    } else {
+       this.review.rating = event.starRating.value = 0;
+    }
+    else {
       this.review.rating = nv;
     }
   }
@@ -111,32 +94,19 @@ export class LocationComponent implements OnInit, OnDestroy {
   }
 
   nextExists() {
-    if (!this.location) {
-      return false;
-    }
-    return (
-      this.paginator.page * this.paginator.itemsPerPage +
-        this.paginator.itemsPerPage <
-      this.location.reviews.length
-    );
+    if (!this.location) { return false; }
+    return this.paginator.page * this.paginator.itemsPerPage + this.paginator.itemsPerPage < this.location.reviews.length;
   }
 
   previousExists() {
-    if (!this.location) {
-      return false;
-    }
-    return (
-      (this.paginator.page - 1) * this.paginator.itemsPerPage +
-        this.paginator.itemsPerPage >
-      0
-    );
+    if (!this.location) { return false; }
+    return (this.paginator.page - 1) * this.paginator.itemsPerPage + this.paginator.itemsPerPage > 0;
   }
 
   paginate() {
     this.pagedReviews = this.location.reviews.slice(
       this.paginator.page * this.paginator.itemsPerPage,
-      this.paginator.page * this.paginator.itemsPerPage +
-        this.paginator.itemsPerPage
+      this.paginator.page * this.paginator.itemsPerPage + this.paginator.itemsPerPage
     );
   }
 
@@ -151,9 +121,7 @@ export class LocationComponent implements OnInit, OnDestroy {
 
   submitRequest() {
     if (!this.changeRequest.description) {
-      this.message.error(
-        'Please provide reason for change before submitting request'
-      );
+      this.message.error('Please provide reason for change before submitting request');
       return;
     }
     this.locationService.submitRequest(this.location.id, this.changeRequest);

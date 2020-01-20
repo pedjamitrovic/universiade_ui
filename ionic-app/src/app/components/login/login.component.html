@@ -1,90 +1,21 @@
-<ion-content color="dark" class="login">
-  <ion-card color="medium">
-    <ion-grid>
-      <ion-row>
-        <ion-col size="8" offset="2">
-          <ion-img
-            id="login-logo"
-            [src]="'assets/pictures/login/logo.png'"
-          ></ion-img>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="10" offset="1">
-          <form class="login-form" [formGroup]="loginForm" autocomplete="off">
-            <ion-item color="medium">
-              <ion-label position="floating">Username</ion-label>
-              <ion-input type="text"></ion-input>
-            </ion-item>
-            <ion-item color="medium">
-              <ion-label position="floating">Password</ion-label>
-              <ion-input type="password"></ion-input>
-            </ion-item>
-            <ion-text class="ion-text-center" color="danger">
-              {{ errorMessage }}
-            </ion-text>
-            <ion-button
-              color="tertiary"
-              class="ion-activatable"
-              (click)="login()"
-            >
-              LOGIN
-              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-            </ion-button>
-          </form>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-</ion-content>
-<!--
-<div class="mat-elevation-z3 login-card">
-  <div fxLayout="row" fxLayoutAlign="space-evenly center">
-    <div fxFlex="40" fxFlexOffset="10">
-      <div fxLayout="row" fxLayoutAlign="center center">
-        <img id="login-logo" src="assets/pictures/login/logo.png" />
-      </div>
-    </div>
-    <div fxFlex="40">
-      <form
-        [formGroup]="loginForm"
-        autocomplete="off"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <div appearance="outline" color="accent">
-          <div>Username</div>
-          <input
-            matInput
-            [formControl]="loginForm.controls['username']"
-            (focus)="onFieldFocus()"
-          />
-          <div *ngIf="loginForm.controls['username'].invalid">
-            Username is required
-          </div>
+<mat-card class="mat-elevation-z3 login-card">
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <img id="login-logo" src="assets/pictures/login/logo.png">
         </div>
-        <div appearance="outline" color="accent">
-          <div>Password</div>
-          <input
-            type="password"
-            matInput
-            [formControl]="loginForm.controls['password']"
-            (focus)="onFieldFocus()"
-          />
-          <div *ngIf="loginForm.controls['password'].invalid">
-            Password is required
-          </div>
-        </div>
-        <div class="login-error">{{ errorMessage }}</div>
-        <button
-          class="mat-elevation-z3"
-          mat-raised-button
-          color="primary"
-          (click)="login()"
-        >
-          LOGIN
-        </button>
-      </form>
+        <form [formGroup]="loginForm" autocomplete="off" fxLayout="column" fxLayoutAlign="center center">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Username</mat-label>
+                <input matInput [formControl]="loginForm.controls['username']" (focus)="onFieldFocus()">
+                <mat-error *ngIf="loginForm.controls['username'].invalid">Username is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [formControl]="loginForm.controls['password']" (focus)="onFieldFocus()">
+                <mat-error *ngIf="loginForm.controls['password'].invalid">Password is required</mat-error>
+            </mat-form-field>
+            <mat-error class="login-error">{{errorMessage}}</mat-error>
+            <button style="margin-top: 10px;" class="mat-elevation-z3" mat-raised-button color="primary" (click)="login()">LOGIN</button>
+        </form>
     </div>
-  </div>
-</div> -->
+</mat-card>

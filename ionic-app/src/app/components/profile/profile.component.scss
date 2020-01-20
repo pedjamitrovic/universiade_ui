@@ -1,5 +1,4 @@
 .profile-card {
-    min-width: 300px;
     mat-card-content {
         margin: 0 16px;
         .description {
@@ -7,13 +6,14 @@
         }
         form {
             padding: 10px;
-            width: 66%;
+            width: 100%;
             height: 100%;
-            button, mat-form-field {
+            button,
+            mat-form-field {
                 width: 100%;
             }
         }
-        .profile-error{
+        .profile-error {
             margin: 10px;
         }
         #profile {

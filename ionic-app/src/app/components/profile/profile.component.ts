@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   }
 
   saveChanges() {
-    if (this.profileForm.invalid) { return; }
+    if (this.profileForm.invalid) return;
     this.userService.changeProfileInfo(
       this.profileForm.controls.firstName.value,
       this.profileForm.controls.lastName.value,

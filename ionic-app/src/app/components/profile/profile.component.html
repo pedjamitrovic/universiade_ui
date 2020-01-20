@@ -1,17 +1,17 @@
-<div class="mat-elevation-z3 profile-card">
-    <div>
-        <div>
+<mat-card class="mat-elevation-z3 profile-card">
+    <mat-card-header>
+        <mat-card-title>
             <h1>Profile</h1>
-        </div>
-        <div>
+        </mat-card-title>
+        <mat-card-subtitle>
             <h2>Your personal information</h2>
-        </div>
-    </div>
-    <div>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
         <p class="description">
         </p>
-        <div fxLayout="row" fxLayoutAlign="space-evenly center">
-            <div fxFlex="40" fxFlexOffset="10">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div>
                 <div fxLayout="row" fxLayoutAlign="center center">
                     <img class="mat-elevation-z3" id="profile" src="assets/pictures/users/{{userService.user.id}}/profile.jpg">
                 </div>
@@ -24,41 +24,41 @@
                     </div>
                 </section>
             </div>
-            <div fxFlex="40">
+            <div>
                 <form [formGroup]="profileForm" autocomplete="off" fxLayout="column" fxLayoutAlign="center center">
-                    <div appearance="outline" color="accent">
-                        <div>First name</div>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>First name</mat-label>
                         <input matInput [formControl]="profileForm.controls['firstName']">
-                        <div *ngIf="profileForm.controls['firstName'].invalid">First name is required</div>
-                    </div>
-                    <div appearance="outline" color="accent">
-                        <div>Last name</div>
+                        <mat-error *ngIf="profileForm.controls['firstName'].invalid">First name is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Last name</mat-label>
                         <input matInput [formControl]="profileForm.controls['lastName']">
-                        <div *ngIf="profileForm.controls['lastName'].invalid">Last name is required</div>
-                    </div>
-                    <div appearance="outline" color="accent">
-                        <div>Phone number</div>
+                        <mat-error *ngIf="profileForm.controls['lastName'].invalid">Last name is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Phone number</mat-label>
                         <input matInput [formControl]="profileForm.controls['phoneNumber']">
-                        <div *ngIf="profileForm.controls['phoneNumber'].invalid">Phone number is required</div>
-                    </div>
-                    <div appearance="outline" color="accent">
-                        <div>Home address</div>
+                        <mat-error *ngIf="profileForm.controls['phoneNumber'].invalid">Phone number is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Home address</mat-label>
                         <input matInput [formControl]="profileForm.controls['homeAddress']">
-                        <div *ngIf="profileForm.controls['homeAddress'].invalid">Home address is required</div>
-                    </div>
-                    <div appearance="outline" color="accent">
-                        <div>Username</div>
+                        <mat-error *ngIf="profileForm.controls['homeAddress'].invalid">Home address is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Username</mat-label>
                         <input matInput [formControl]="profileForm.controls['username']">
-                        <div *ngIf="profileForm.controls['username'].invalid">Username is required</div>
-                    </div>
-                    <div appearance="outline" color="accent">
-                        <div>Password</div>
+                        <mat-error *ngIf="profileForm.controls['username'].invalid">Username is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" color="accent">
+                        <mat-label>Password</mat-label>
                         <input matInput type="password" [formControl]="profileForm.controls['password']">
-                        <div *ngIf="profileForm.controls['password'].invalid">Password is required</div>
-                    </div>
+                        <mat-error *ngIf="profileForm.controls['password'].invalid">Password is required</mat-error>
+                    </mat-form-field>
                     <button class="mat-elevation-z3" mat-raised-button color="primary" (click)="saveChanges()">SAVE CHANGES</button>
                 </form>
             </div>
         </div>
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>

@@ -1,106 +1,98 @@
-<div class="mat-elevation-z3 location-card">
-    <div>
-        <div>
+<mat-card class="mat-elevation-z3 location-card">
+    <mat-card-header>
+        <mat-card-title>
             <h1>{{location.name}}</h1>
-        </div>
-        <div>
+        </mat-card-title>
+        <mat-card-subtitle>
             <div *ngIf="averageRating" fxLayout="column" fxLayoutAlign="center start">
                 <div class="rating-label" fxLayout="row" fxLayoutAlign="center center">
-                    <star-rating value="{{roundAverageRating}}" totalstars="5" checkedcolor="gold"
-                        uncheckedcolor="silver" size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
-                    <h3 style="margin: 0;">{{averageRating.toFixed(2)}}/5</h3>
+                    <star-rating value="{{roundAverageRating}}" totalstars="5" checkedcolor="gold" uncheckedcolor="silver" size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
+                    <h4 style="margin: 0;">{{averageRating.toFixed(2)}}/5</h4>
                 </div>
             </div>
-        </div>
-    </div>
-    <div>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
         <p class="description">{{location.description}}</p>
-        <div *ngIf="location?.reviews?.length" fxLayout="row" fxLayoutAlign="center stretch">
-            <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary"
-                [disabled]="!previousExists() ? true : null" (click)="previousPage()">
-                <div>arrow_back_ios</div>
+        <div *ngIf="location?.reviews?.length" fxLayout="row" fxLayoutAlign="center center">
+            <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary" [disabled]="!previousExists() ? true : null" (click)="previousPage()">
+                <mat-icon>arrow_back_ios</mat-icon>
             </button>
-            <div *ngFor="let r of pagedReviews; index as i" class="review-card mat-elevation-z3">
-                <div fxLayout="row" fxLayoutAlign="center">
-                    <div fxLayout="row" fxLayoutAlign="center center"><img class="mat-elevation-z3"
-                            id="profile-image-circle-location"
-                            src="assets/pictures/users/{{r.userId}}/profile.jpg">{{userService.getUser(r.userId).username}}
-                    </div>
-                    <div style="text-align: center;">
-                        <star-rating *ngIf="r.rating" value="{{r.rating}}" totalstars="5" checkedcolor="gold"
-                            uncheckedcolor="silver" size="24px" readonly="true" (rate)="onRate($event)"></star-rating>
-                        <h3 *ngIf="!r.rating">No rating</h3>
-                    </div>
-                </div>
-                <div>
+            <mat-card *ngFor="let r of pagedReviews; index as i" class="review-card mat-elevation-z3">
+                <mat-card-header fxLayout="row" fxLayoutAlign="center">
+                    <mat-card-title fxLayout="row" fxLayoutAlign="center center"><img class="mat-elevation-z3" id="profile-image-circle-location" src="assets/pictures/users/{{r.userId}}/profile.jpg">
+                        <h5>{{userService.getUser(r.userId).username}}</h5>
+                    </mat-card-title>
+                    <mat-card-subtitle style="text-align: center;">
+                        <star-rating *ngIf="r.rating" value="{{r.rating}}" totalstars="5" checkedcolor="gold" uncheckedcolor="silver" size="20px" readonly="true" (rate)="onRate($event)"></star-rating>
+                        <h6 *ngIf="!r.rating">No rating</h6>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
                     <p>
                         {{r.description ? r.description: 'User didn\'t leave comment.'}}
                     </p>
-                </div>
-            </div>
-            <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary"
-                [disabled]="!nextExists() ? true : null" (click)="nextPage()">
-                <div>arrow_forward_ios</div>
+                </mat-card-content>
+            </mat-card>
+            <button class="mat-elevation-z3 paginate-button" mat-raised-button color="primary" [disabled]="!nextExists() ? true : null" (click)="nextPage()">
+                <mat-icon>arrow_forward_ios</mat-icon>
             </button>
         </div>
-    </div>
-</div>
+    </mat-card-content>
+</mat-card>
 
-<div class="mat-elevation-z3 post-review-card">
-    <div>
-        <div>
+<mat-card class="mat-elevation-z3 post-review-card">
+    <mat-card-header>
+        <mat-card-title>
             <h3>Leave your review</h3>
-        </div>
-        <div>
-            <h4>Rate and comment as you wish</h4>
-        </div>
-    </div>
-    <div>
-        <div class="mat-elevation-z3">
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h6>Rate and comment as you wish</h6>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-card class="mat-elevation-z3">
             <form class="post-review-form" autocomplete="off">
                 <div fxLayout="column" fxLayoutAlign="center start">
                     <div class="rating-label" fxLayout="row" fxLayoutAlign="center center">
                         <div>Your rating: </div>
-                        <star-rating value="{{review.rating}}" totalstars="5" checkedcolor="gold" uncheckedcolor="silver" size="20px"
-                            readonly="false" (rate)="onRate($event)"></star-rating>
+                        <star-rating value="{{review.rating}}" totalstars="5" checkedcolor="gold" uncheckedcolor="silver" size="20px" readonly="false" (rate)="onRate($event)"></star-rating>
                     </div>
-                    <div class="full-width" color="accent">
-                        <textarea [(ngModel)]="review.description" [ngModelOptions]="{standalone: true}" style="min-height: 50px;"
-                            matInput placeholder="Your comment"></textarea>
-                    </div>
+                    <mat-form-field class="full-width" color="accent">
+                        <textarea [(ngModel)]="review.description" [ngModelOptions]="{standalone: true}" style="min-height: 50px;" matInput placeholder="Your comment"></textarea>
+                    </mat-form-field>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="center end">
                     <button class="mat-elevation-z3" mat-raised-button color="primary" (click)="postReview()">POST
                         REVIEW</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
+        </mat-card>
+    </mat-card-content>
+</mat-card>
 
-<div class="mat-elevation-z3 post-review-card">
-    <div>
-        <div>
+<mat-card class="mat-elevation-z3 post-review-card">
+    <mat-card-header>
+        <mat-card-title>
             <h3>Change request</h3>
-        </div>
-        <div>
-            <h4>Not satisfied with this location? Post a change request</h4>
-        </div>
-    </div>
-    <div>
-        <div class="mat-elevation-z3">
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h6>Not satisfied with this location? Post a change request</h6>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-card class="mat-elevation-z3">
             <form class="post-review-form" autocomplete="off">
                 <div fxLayout="column" fxLayoutAlign="center start">
-                    <div class="full-width" color="accent">
-                        <textarea [(ngModel)]="changeRequest.description" [ngModelOptions]="{standalone: true}" style="min-height: 50px;" matInput
-                            placeholder="What are your reasons for requesting a change?"></textarea>
-                    </div>
+                    <mat-form-field class="full-width" color="accent">
+                        <textarea [(ngModel)]="changeRequest.description" [ngModelOptions]="{standalone: true}" style="min-height: 50px;" matInput placeholder="Reasons for change"></textarea>
+                    </mat-form-field>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="center end">
                     <button class="mat-elevation-z3" mat-raised-button color="primary" (click)="submitRequest()">SUBMIT
                         REQUEST</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
+        </mat-card>
+    </mat-card-content>
+</mat-card>

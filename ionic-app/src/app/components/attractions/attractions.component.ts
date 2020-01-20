@@ -16,7 +16,6 @@ export class AttractionsComponent implements OnInit {
 
   ngOnInit() {
     this.initData();
-    this.paginator.itemsPerPage = Math.floor(window.innerWidth / 400);
     this.paginator.page = 0;
     this.paginate();
   }
@@ -27,9 +26,6 @@ export class AttractionsComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    const itemsPerPage = Math.floor(event.target.innerWidth / 400);
-    if (itemsPerPage === this.paginator.itemsPerPage) { return; }
-    this.paginator.itemsPerPage = itemsPerPage;
     this.paginator.page = 0;
     this.paginate();
   }

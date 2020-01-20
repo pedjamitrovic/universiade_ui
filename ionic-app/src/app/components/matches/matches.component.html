@@ -1,57 +1,55 @@
-<div class="mat-elevation-z3 matches-card">
-    <div>
-        <div>
+<mat-card class="mat-elevation-z3 matches-card">
+    <mat-card-header>
+        <mat-card-title>
             <h1>Matches</h1>
-        </div>
-        <div>
-            <h2>Information about your matches</h2>
-        </div>
-    </div>
-    <div>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <h5>Information about your matches</h5>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
         <p class="description">
-            Don't be late for your matches! You can find all needed information bellow. Filter matches by date, time or
-            venue as needed.
+            Don't be late for your matches! You can find all needed information bellow. Filter matches by date, time or venue as needed.
         </p>
-        <form [formGroup]="filterForm" autocomplete="off" fxLayout="row" fxLayoutAlign="space-evenly center"
-            class="mat-elevation-z3">
-            <div fxFlex="20" color="accent">
-                <div>Date</div>
-                <input matInput [formControl]="filterForm.controls['date']" placeholder="Example: 20.03.2020.">
-            </div>
-            <div fxFlex="20" color="accent">
-                <div>Time</div>
-                <input matInput [formControl]="filterForm.controls['time']" placeholder="Example: 14:32">
-            </div>
-            <div fxFlex="20" color="accent">
-                <div>Venue</div>
-                <input matInput [formControl]="filterForm.controls['venue']">
-            </div>
-            <button class="mat-elevation-z3" fxFlex="20" mat-raised-button color="primary"
-                (click)="filterMatches()">SEARCH</button>
-        </form>
-        <table mat-table class="mat-elevation-z3">
-            <ng-container matColumnDef="host">
-                <th mat-header-cell *matHeaderCellDef> Host </th>
-                <td mat-cell *matCellDef="let element"> {{element?.host}} </td>
-            </ng-container>
-            <ng-container matColumnDef="visitor">
-                <th mat-header-cell *matHeaderCellDef> Visitor </th>
-                <td mat-cell *matCellDef="let element"> {{element?.visitor}} </td>
-            </ng-container>
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> Date </th>
-                <td mat-cell *matCellDef="let element">
-                    {{element?.date | date: 'dd.MM.yyyy.'}}
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="time">
-                <th mat-header-cell *matHeaderCellDef> Time </th>
-                <td mat-cell *matCellDef="let element"> {{element?.date | date:'HH:mm'}} </td>
-            </ng-container>
-            <ng-container matColumnDef="venue">
-                <th mat-header-cell *matHeaderCellDef> Venue </th>
-                <td mat-cell *matCellDef="let element"> {{element?.venue ? element.venue : '?'}} </td>
-            </ng-container>
-        </table>
-    </div>
-</div>
+        <div style="margin-bottom: 10px;" class="mat-elevation-z3" fxLayout="row" fxLayoutAlign="center center">
+            <form style="width: 80%; padding: 10px;" [formGroup]="filterForm" autocomplete="off" fxLayout="column" fxLayoutAlign="center stretch">
+                <mat-form-field color="accent">
+                    <mat-label>Date</mat-label>
+                    <input matInput [formControl]="filterForm.controls['date']" placeholder="Example: 20.03.2020.">
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <mat-label>Time</mat-label>
+                    <input matInput [formControl]="filterForm.controls['time']" placeholder="Example: 14:32">
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <mat-label>Venue</mat-label>
+                    <input matInput [formControl]="filterForm.controls['venue']">
+                </mat-form-field>
+                <button style="margin-bottom: 10px;margin-top: 10px;" class="mat-elevation-z3" mat-raised-button color="primary" (click)="filterMatches()">SEARCH</button>
+            </form>
+        </div>
+        <mat-card style="margin-bottom: 10px;" *ngFor="let item of dataSource.data">
+            <mat-card-header>
+                <mat-card-title>
+                    <h6>{{item?.host}} - {{item?.visitor}}</h6>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <h6>{{item?.date | date: 'dd.MM.yyyy.'}} {{item?.date | date:'HH:mm'}}</h6>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                Venue: {{item?.venue ? item.venue : '?'}}
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="dataSource.data.length === 0">
+            <mat-card-header>
+                <mat-card-title>
+                    <h6>Sorry!</h6>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                There are no matches matching filter criteria.
+            </mat-card-content>
+        </mat-card>
+    </mat-card-content>
+</mat-card>

@@ -16,7 +16,23 @@ import { MatchesComponent } from './components/matches/matches.component';
 import { AttractionsComponent } from './components/attractions/attractions.component';
 import { AttractionComponent } from './components/attraction/attraction.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { StarRatingComponent } from 'ng-starrating';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RatingModule } from 'ng-starrating';
+import { MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatSnackBarModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatListModule } from '@angular/material/list';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +46,7 @@ import { StarRatingComponent } from 'ng-starrating';
     MatchesComponent,
     AttractionsComponent,
     AttractionComponent,
-    StarRatingComponent
+    NavigationComponent
   ],
   entryComponents: [],
   imports: [
@@ -39,6 +55,27 @@ import { StarRatingComponent } from 'ng-starrating';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatCardModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    RatingModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    LayoutModule,
+    MatListModule,
   ],
   providers: [
     StatusBar,

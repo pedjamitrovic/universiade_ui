@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Match } from 'src/app/model/match';
 import { UserService } from 'src/app/services/user.service';
-import { formatDate } from '@angular/common';
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: 'app-matches',
@@ -13,7 +14,7 @@ export class MatchesComponent implements OnInit {
   matches: Match[];
   filterForm: FormGroup;
   displayedColumns: string[];
-  // dataSource: MatTableDataSource<Match>;
+  dataSource: MatTableDataSource<Match>;
 
   constructor(private userService: UserService) {
     this.initForm();
@@ -34,7 +35,7 @@ export class MatchesComponent implements OnInit {
 
   initData() {
     this.matches = this.userService.getMatches();
-    // this.dataSource = new MatTableDataSource(this.matches);
+    this.dataSource = new MatTableDataSource(this.matches);
   }
 
   filterMatches() {
@@ -42,7 +43,7 @@ export class MatchesComponent implements OnInit {
     if (this.filterForm.controls.date.value) {
       filteredMatches = filteredMatches.filter(
         (match) => {
-          const date = formatDate(match.date, 'dd.MM.yyyy.', 'en-US');
+          let date = formatDate(match.date, 'dd.MM.yyyy.', 'en-US');
           return date.includes(this.filterForm.controls.date.value.trim());
         }
       );
@@ -50,7 +51,7 @@ export class MatchesComponent implements OnInit {
     if (this.filterForm.controls.time.value) {
       filteredMatches = filteredMatches.filter(
         (match) => {
-          const time = formatDate(match.date, 'HH:mm', 'en-US');
+          let time = formatDate(match.date, 'HH:mm', 'en-US');
           return time.includes(this.filterForm.controls.time.value.trim());
         }
       );
@@ -58,12 +59,12 @@ export class MatchesComponent implements OnInit {
     if (this.filterForm.controls.venue.value) {
       filteredMatches = filteredMatches.filter(
         (match) => {
-          const venue = match.venue ? match.venue.toLowerCase() : '?';
-          const enteredVenue = this.filterForm.controls.venue.value.trim().toLowerCase();
+          let venue = match.venue ? match.venue.toLowerCase() : '?';
+          let enteredVenue = this.filterForm.controls.venue.value.trim().toLowerCase();
           return venue.includes(enteredVenue);
         }
       );
     }
-    // this.dataSource = new MatTableDataSource(filteredMatches);
+    this.dataSource = new MatTableDataSource(filteredMatches);
   }
 }

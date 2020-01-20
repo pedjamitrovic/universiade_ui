@@ -28,13 +28,10 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginForm.invalid) {
-      this.errorMessage = 'Please enter all information';
-      return;
-    }
+    if (this.loginForm.invalid) return;
     this.userService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
     if (!this.userService.user) {
-      this.errorMessage = 'Wrong credentials';
+      this.errorMessage = 'Wrong credentials.';
     }
   }
 

@@ -1,4 +1,4 @@
-.matches-card{
+.matches-card {
     mat-card-content {
         margin: 0 16px;
         .description {
@@ -12,16 +12,41 @@
     justify-content: center;
 }
 
+:host ::ng-deep th.mat-header-cell:first-of-type {
+    padding-left: 5px;
+}
+
+:host ::ng-deep th.mat-header-cell:last-of-type {
+    padding-right: 5px;
+}
+
+:host ::ng-deep td.mat-cell:last-of-type {
+    padding-right: 5px;
+}
+
+:host ::ng-deep td.mat-cell:first-of-type {
+    padding-left: 5px;
+}
+
+:host ::ng-deep td.mat-cell {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
 table {
     width: 100%;
-    padding: 10px;
 }
 
 .mat-form-field {
     font-size: 16px;
+    width: 100%;
+}
+
+mat-button {
+    width: 100%;
 }
 
 th.mat-header-cell,
 td.mat-cell {
     text-align: center;
-}    
+}

@@ -9,11 +9,9 @@
     </mat-card-header>
     <mat-card-content>
         <p class="description">
-            Don't be late for your matches! You can find all needed information bellow. Filter matches by date, time or
-            venue as needed.
+            Don't be late for your matches! You can find all needed information bellow. Filter matches by date, time or venue as needed.
         </p>
-        <form [formGroup]="filterForm" autocomplete="off" fxLayout="row" fxLayoutAlign="space-evenly center"
-            class="mat-elevation-z3">
+        <form [formGroup]="filterForm" autocomplete="off" fxLayout="row" fxLayoutAlign="space-evenly center" class="mat-elevation-z3">
             <mat-form-field fxFlex="20" color="accent">
                 <mat-label>Date</mat-label>
                 <input matInput [formControl]="filterForm.controls['date']" placeholder="Example: 20.03.2020.">
@@ -26,10 +24,9 @@
                 <mat-label>Venue</mat-label>
                 <input matInput [formControl]="filterForm.controls['venue']">
             </mat-form-field>
-            <button class="mat-elevation-z3" fxFlex="20" mat-raised-button color="primary"
-                (click)="filterMatches()">SEARCH</button>
+            <button class="mat-elevation-z3" fxFlex="20" mat-raised-button color="primary" (click)="filterMatches()">SEARCH</button>
         </form>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z3">
+        <table *ngIf="dataSource.data.length !== 0" mat-table [dataSource]="dataSource" class="mat-elevation-z3">
             <ng-container matColumnDef="host">
                 <th mat-header-cell *matHeaderCellDef> Host </th>
                 <td mat-cell *matCellDef="let element"> {{element?.host}} </td>
@@ -56,5 +53,16 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+
+        <mat-card *ngIf="dataSource.data.length === 0">
+            <mat-card-header>
+                <mat-card-title>
+                    <h3>Sorry!</h3>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                There are no matches matching filter criteria.
+            </mat-card-content>
+        </mat-card>
     </mat-card-content>
 </mat-card>
